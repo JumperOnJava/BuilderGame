@@ -3,35 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridData
+public struct GridCell
 {
-    public List<List<GridCell>> Data; 
-    public GridData(int height,int width,AllElementsInfo info)
-    {
-        Data = new List<List<GridCell>>(height);
-        for(int i = 0; i < height; i++)
-        {
-            Data.Add(new List<GridCell>(width));
-            for(int j = 0; j < width; j++)
-            {
-                var newcell = new GridCell(ElementType.Empty,info);
-                Data[i].Add(newcell);
-            }
-        }
-    }
-}
-public class GridCell
-{
-    private AllElementsInfo Allinfo;
+    private ElementInfo Info;
     public ElementInfo GetInfo()
     {
-        return Allinfo.GetInfo(Type);
+        return Info;
     }
-    public GridCell(ElementType type,AllElementsInfo info)
+    public GridCell(ElementType type,ElementInfo info)
     {
         Type = type;
-        Allinfo = info;
-    }
+        Info = info;
+		_rotation = ElementRotation.R_0_Degrees;
+
+	}
     public bool ShouldConnect(int direction)
     {
         if (GetInfo() == null)
@@ -59,5 +44,6 @@ public class GridCell
         }
     }
     private ElementRotation _rotation;
+	
 }
 

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63547874db7fc484ab071f3ebef8f838, type: 3}
   m_Name: Empty
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  Sprite: {fileID: 21300000, guid: 4713172c62d322b47b616c0f191412e8, type: 3}
   Name: Empty
   ElementPrefab: {fileID: 4966472049842496273, guid: cdbe08bcc59fdcb43a73fe9bf59c036d, type: 3}
+  RotationPrefabs: []
   Rotates: 0
   ConnectsUp: 0
   ConnectsDown: 0

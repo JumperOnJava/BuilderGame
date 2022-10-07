@@ -6,41 +6,48 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GridCellButton : MonoBehaviour ,IDropHandler
+public class GridCellButton : ElementContainer ,IDropHandler
 {
-    private GridCell _element;
-    private BuilderUiController _controller;
     [SerializeField]
     private Image _elementIcon; 
     [SerializeField]
     private GameObject _rotateButton;
     private int height;
     private int width;
-    public void Init(BuilderUiController controller,GridCell element, int height, int width)
+    public void Init(BuilderUiController controller,GridCell cell, int height, int width)
     {
-        _controller = controller;
-        _element = element;
-        _rotateButton.SetActive(element.GetInfo().Rotates);
+		base.Init(cell);
         this.height = height;  
         this.width = width;
         UpdateIcon();
     }
     public void OnClick()
     {
-        _controller.ClickElement(height, width);
+        //
     }
     public void OnRotate()
     {
-        _element.Rotation = (ElementRotation)(((int)_element.Rotation+3)%4);
+        Cell.Rotation = (ElementRotation)(((int)Cell.Rotation+3)%4);
         UpdateIcon();
     }
-    public void OnDrop(PointerEventData eventData)
+	public override void OnSuccessfullRecieve(GridCell recieveObject)
+	{
+		Debug.Log("recieved "+recieveObject.Type);
+		this.Cell = recieveObject;
+		UpdateIcon();
+	}
+	public override void OnSuccessfullSend(GridCell sendObject)
+	{
+		Debug.Log("recieved " + sendObject.Type);
+		this.Cell = sendObject;
+		UpdateIcon();
+	}
+	public override bool AllowRecieve() { return true; }
+	public override bool AllowSend() { return true; }
+	private void UpdateIcon()
     {
-
-    }
-    private void UpdateIcon()
-    {
-        _elementIcon.sprite = _element.GetInfo().Sprite;
-        _elementIcon.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)_element.Rotation * 90));
+		_rotateButton.SetActive(Cell.GetInfo().Rotates);	
+		_elementIcon.sprite = Cell.GetInfo().Sprite;
+        _elementIcon.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)Cell.Rotation * 90));
     }
 }

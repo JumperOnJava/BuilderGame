@@ -25,10 +25,6 @@ public class BuilderUiController : MonoBehaviour
     private StartLevelButton _startLevelButton;
 
 	[Space(5)]
-	[Header("Canvas")]
-	[SerializeField]
-	public Canvas Canvas;
-	[Space(5)]
     [Header("ElementList")]
     [SerializeField]
     private GameObject _elementList;
@@ -43,20 +39,19 @@ public class BuilderUiController : MonoBehaviour
     private GameObject _gridCellTemplate;
 
     private Dictionary<ElementType, int> _elementCount;
-    private ElementType _currentElementType;
 
-    private List<List<GridCell>> _gridData;
+    //private List<List<GridCell>> _gridData;
     
     private void Start()
     {
-        _gridData = new GridData(_builderData.GridHeight, _builderData.GridWidth,_allElementsInfo).Data;
+        //_gridData = new List<List<GridCell>>.Data;
         _elementCount = new Dictionary<ElementType, int>(_builderData.Elements);
         _deleteButton.Init(this);
         _startLevelButton.Init(this);
-        UpdateButton();
-        UpdateGrid();
+        InitButtons();
+        InitGrid();
     }
-    private void UpdateButton()
+    private void InitButtons()
     {
         _elementCount[ElementType.Empty] = 0;
         foreach (Transform child in _elementList.transform)
@@ -69,11 +64,12 @@ public class BuilderUiController : MonoBehaviour
                 continue;
             var button = GameObject.Instantiate(_elementListButtonTemplate);
             var buttonEdit = button.GetComponent<ElementListButton>();
-            buttonEdit.Init(this, element.Key, element.Value);
+            buttonEdit.Init(new GridCell(element.Key,_allElementsInfo.GetInfo(element.Key)), element.Value);
             button.transform.SetParent(_elementList.transform);
         }
+		_elementList.GetComponentInParent<ElementReturnBox>().Init(new GridCell(ElementType.Empty, _allElementsInfo.GetInfo(ElementType.Empty)));
     }
-    private void UpdateGrid()
+    private void InitGrid()
     {
         foreach (Transform child in _elementGrid.transform)
         {
@@ -87,35 +83,14 @@ public class BuilderUiController : MonoBehaviour
             {
                 var gridCell = GameObject.Instantiate(_gridCellTemplate);
                 var gridCellEdit = gridCell.GetComponent<GridCellButton>();
-                gridCellEdit.Init(this, _gridData[i][j], i, j);
+                gridCellEdit.Init(this, new GridCell(ElementType.Empty, _allElementsInfo.GetInfo(ElementType.Empty)), i, j);
                 gridCell.transform.SetParent(_elementGrid.transform);
             }
         }
     }
-    public void ClickElement(int height, int width)
-    {
-        var cell = _gridData[height][width];
-        if (_currentElementType != _gridData[height][width].Type)
-        {
-            if (_elementCount[_currentElementType] > 0 || _currentElementType == ElementType.Empty)
-            {
-                var prevType = _gridData[height][width].Type;
-                _elementCount[_currentElementType]--;
-                _elementCount[prevType]++;
-                cell.Type = _currentElementType;
-            };
-        }
-        else
-        {
-            _elementCount[cell.Type]++;
-            cell.Type = ElementType.Empty;
-        }
-        UpdateButton();
-        UpdateGrid();
-    }
     public void SelectElementType(ElementType elementType)
     {
-        _currentElementType = elementType;
+        //_currentElementType = elementType;
 
     }
     public void StartLevel()
@@ -127,14 +102,14 @@ public class BuilderUiController : MonoBehaviour
         {
             for (int j = 0; j < _builderData.GridWidth; j++)
             {
-                var gridElement = gridTransform.GetChild(i*_builderData.GridWidth+j);
-                if (_gridData[i][j].Type == ElementType.Empty)
+                var gridElement = gridTransform.GetChild(i*_builderData.GridWidth+j).GetComponent<ElementContainer>();
+                if (gridElement.Cell.Type == ElementType.Empty)
                 {
                     elements[i, j] = null;
                     continue;
                 }
-                var element = GameObject.Instantiate(_gridData[i][j].GetInfo().GetPrefab((int)_gridData[i][j].Rotation),gridElement.position, Quaternion.Euler(new Vector3(0, 0, (int)_gridData[i][j].Rotation * 90)));
-                element.transform.position = gridElement.position;
+                var element = GameObject.Instantiate(gridElement.Cell.GetInfo().GetPrefab((int)gridElement.Cell.Rotation),gridElement.transform.position, Quaternion.Euler(new Vector3(0, 0, (int)gridElement.Cell.Rotation * 90)));
+                element.transform.position = gridElement.transform.position;
                 element.transform.SetParent(_builderParent.transform);
                 //element.GetComponent<GenericElement>().transform.rotation =);
                 elements[i, j] = element;
@@ -160,7 +135,10 @@ public class BuilderUiController : MonoBehaviour
                     catch { continue; }
                     if (jointObject == null)
                         continue;
-                    if (!(_gridData[i][j].ShouldConnect(k) && _gridData[i + i1[k]][j + j1[k]].ShouldConnect(k + 2))) { continue; }
+					var gridElement = gridTransform.GetChild(i * _builderData.GridWidth + j).GetComponent<ElementContainer>();
+					var gridElement2 = gridTransform.GetChild((i + i1[k]) * _builderData.GridWidth + (j + j1[k])).GetComponent<ElementContainer>();
+
+					if (!(gridElement.Cell.ShouldConnect(k) && gridElement2.Cell.ShouldConnect(k + 2))) { continue; }
                     
                     elements[i, j].GetComponent<GenericElement>().ConnectWith(jointObject.GetComponent<GenericElement>().GetJointObject());
                 }

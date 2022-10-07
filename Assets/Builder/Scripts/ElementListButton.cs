@@ -7,59 +7,45 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
 using Mono.Cecil.Cil;
+using System;
+using System.Drawing;
 
-public class ElementListButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IClickable
+public class ElementListButton : ElementContainer
 {
 	[SerializeField]
 	private RectTransform _rectTransform;
-	private Canvas _canvas => _controller.Canvas;
-	private GameObject _dragSprite;
     [SerializeField]
     private TextMeshProUGUI _text;
     [SerializeField]
     private Image _elementIcon;
-    [SerializeField]
-    AllElementsInfo AllElementsInfo;
-    private ElementType _elementType;
-    private int _count;
-    private BuilderUiController _controller;
-	public void Init(BuilderUiController controller,ElementType type,int count)
+	private int _count;
+	public void Init( GridCell cell,int count)
     {
-		_controller = controller;
-        _elementType = type;
+		base.Init(cell);
         _count = count;
-        _text.text = $"{_elementType} - {count}";
-
-        UpdateIcon();
-    }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-		
-    }
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-		_dragSprite = Instantiate(gameObject);
-		_dragSprite.transform.position = _dragSprite.transform.position.ComponentMultiply(_canvas.transform.localScale);
-		_dragSprite.transform.localScale = _canvas.gameObject.transform.localScale;
-		_dragSprite.transform.SetParent(_canvas.gameObject.transform);
+		UpdateText();
+		UpdateIcon();
 	}
-	public void OnDrag(PointerEventData eventData)
+	private void UpdateText()
 	{
-		var vc = (eventData.);
-		_dragSprite.transform.position += new Vector3(vc.x,vc.y,0);
-		Debug.DrawLine(_dragSprite.transform.position, Vector3.zero	,Color.red,1);
-		GameObject.FindGameObjectWithTag("MainCamera");
+		_text.text = $"{Cell.Type} - {_count}";
 	}
-	public void OnEndDrag(PointerEventData eventData)
+	public override void OnSuccessfullRecieve(GridCell gridCell)
+	{
+		Debug.Log(gridCell.Type != Cell.Type);
+		_count++;
+		UpdateText();
+	}
+	public override bool AllowRecieve() {return false;}
+	public override bool AllowSend() { return _count>0;}
+	public override void OnSuccessfullSend(GridCell gridCell)
+	{
+		Debug.Log("send?");
+		_count--;
+		UpdateText();
+	}
+	private void UpdateIcon()
     {
-		Destroy(_dragSprite);
-    }
-    public void OnClick()
-    {
-        _controller.SelectElementType(_elementType);
-    }
-    private void UpdateIcon()
-    {
-        _elementIcon.sprite = AllElementsInfo.GetInfo(_elementType).Sprite;
+        _elementIcon.sprite = Cell.GetInfo().Sprite;
     }
 }
