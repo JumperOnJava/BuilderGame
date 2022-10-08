@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4966472049842496272}
   - component: {fileID: 4966472049842496284}
   - component: {fileID: 4966472049842496283}
-  - component: {fileID: 4966472049842496285}
+  - component: {fileID: 7201272216080962878}
   m_Layer: 0
-  m_Name: GenericCube
+  m_Name: CoreCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2eac8908af133af4795ca329bffd3dc1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ffe4362074def57429d45897c5a90e0b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,7 +134,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4966472049842496285
+--- !u!114 &7201272216080962878
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,6 +143,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4966472049842496273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd495dc77e1de84c800e27f1aa62759, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cbfd223b71e06e4b9bd5ff73d8af8b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

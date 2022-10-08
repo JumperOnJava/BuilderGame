@@ -2,12 +2,14 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public abstract class ElementContainer : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
+	private static GridCell CursorSlot;
 	public GridCell Cell;
 	private GameObject _dragSprite;
 	private Camera _camera;
@@ -33,6 +35,8 @@ public abstract class ElementContainer : MonoBehaviour, IBeginDragHandler, IEndD
 		sprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)Cell.Rotation*90));
 		sprite.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
 		_dragSprite.transform.SetParent(_camera.gameObject.transform);
+		//CursorSlot = this.Cell;
+		//this.Cell = GridCell.EmptyCell;
 	}
 	public void OnDrag(PointerEventData eventData)
 	{
@@ -48,10 +52,12 @@ public abstract class ElementContainer : MonoBehaviour, IBeginDragHandler, IEndD
 		var container = eventData.selectedObject.GetComponent<ElementContainer>();
 		if (container == null)
 			return;
-		//if (container.Cell.Type == Cell.Type)
-		//return;
 		if (!(container.AllowSend() && AllowRecieve()))
 			return;
+		OnDropLogic(container);
+	}
+	public virtual void OnDropLogic(ElementContainer container)
+	{
 		var c1 = container.Cell;
 		var c2 = Cell;
 		container.OnSuccessfullSend(c2);

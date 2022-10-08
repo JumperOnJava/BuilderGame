@@ -11,14 +11,9 @@ public class ElementInfo : ScriptableObject
     public Sprite Sprite;
     public string Name;
     public GameObject ElementPrefab;
-    [SerializeField]
-    private GameObject[] RotationPrefabs;
     public GameObject GetPrefab(int rotation)
     {
-        if (false)
-            return RotationPrefabs[rotation];
-        else
-            return ElementPrefab;   
+		return ElementPrefab;   
     }
     public bool Rotates;
     [Space]

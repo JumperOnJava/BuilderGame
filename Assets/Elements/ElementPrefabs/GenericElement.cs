@@ -13,7 +13,7 @@ public abstract class GenericElement : MonoBehaviour
 
 
         var joint = gameObject.AddComponent<FixedJoint2D>();
-        
+		joint.breakForce = 1000;
         joint.autoConfigureConnectedAnchor = true;
         joint.connectedBody = connectObject.GetComponent<Rigidbody2D>();
     }

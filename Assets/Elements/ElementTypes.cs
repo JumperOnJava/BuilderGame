@@ -9,7 +9,8 @@ public enum ElementType
     Engine,
     Light,
     Laser,
-    Wheel
+    Wheel,
+	Core,
 }
 public enum ElementRotation
 {

@@ -16,18 +16,10 @@ public class ElementReturnBox : ElementContainer, IDropHandler
 	{
 		return false;
 	}
-	public void OnDrop(PointerEventData eventData)
-	{
-		Debug.Log("igotdropped");
-
-		base.OnDrop(eventData);
-	}
-
 	public override void OnSuccessfullRecieve(GridCell recieveCell)
 	{
 		foreach (ElementListButton btn in _listParent.transform.GetComponentsInChildren<ElementListButton>())
 		{
-			Debug.Log("searching "+recieveCell.Type+" but found "+btn.Cell);
 			if (btn.Cell.Type == recieveCell.Type)
 			{
 				btn.OnSuccessfullRecieve(recieveCell);

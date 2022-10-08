@@ -5,6 +5,7 @@ using UnityEngine;
 
 public struct GridCell
 {
+	public static GridCell EmptyCell;
     private ElementInfo Info;
     public ElementInfo GetInfo()
     {
@@ -15,7 +16,8 @@ public struct GridCell
         Type = type;
         Info = info;
 		_rotation = ElementRotation.R_0_Degrees;
-
+		if (type == ElementType.Empty)
+			EmptyCell = this;
 	}
     public bool ShouldConnect(int direction)
     {

@@ -20,8 +20,6 @@ public class BuilderUiController : MonoBehaviour
     [Space(5)]
     [Header("Buttons")]
     [SerializeField]
-    private DeleteElementButton _deleteButton;
-    [SerializeField]
     private StartLevelButton _startLevelButton;
 
 	[Space(5)]
@@ -46,7 +44,6 @@ public class BuilderUiController : MonoBehaviour
     {
         //_gridData = new List<List<GridCell>>.Data;
         _elementCount = new Dictionary<ElementType, int>(_builderData.Elements);
-        _deleteButton.Init(this);
         _startLevelButton.Init(this);
         InitButtons();
         InitGrid();

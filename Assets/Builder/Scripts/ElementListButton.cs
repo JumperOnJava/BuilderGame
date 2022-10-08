@@ -30,13 +30,25 @@ public class ElementListButton : ElementContainer
 	{
 		_text.text = $"{Cell.Type} - {_count}";
 	}
+	public override void OnDropLogic(ElementContainer container)
+	{
+		foreach (ElementListButton btn in FindObjectsOfType<ElementListButton>())
+		{
+			Debug.Log("searching " + container.Cell.Type + " but found " + btn.Cell);
+			if (btn.Cell.Type == container.Cell.Type)
+			{
+				btn.OnSuccessfullRecieve(container.Cell);
+				container.OnSuccessfullSend(GridCell.EmptyCell);
+				break;
+			}
+		}
+	}
 	public override void OnSuccessfullRecieve(GridCell gridCell)
 	{
-		Debug.Log(gridCell.Type != Cell.Type);
 		_count++;
 		UpdateText();
 	}
-	public override bool AllowRecieve() {return false;}
+	public override bool AllowRecieve() {return true;}
 	public override bool AllowSend() { return _count>0;}
 	public override void OnSuccessfullSend(GridCell gridCell)
 	{
