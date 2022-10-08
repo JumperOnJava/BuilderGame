@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using Mono.Cecil.Cil;
 using System;
 using System.Drawing;
+using System.ComponentModel;
 
 public class ElementListButton : ElementContainer
 {
@@ -45,16 +46,18 @@ public class ElementListButton : ElementContainer
 	}
 	public override void OnSuccessfullRecieve(GridCell gridCell)
 	{
-		_count++;
-		UpdateText();
+			_count++;
+			UpdateText();
 	}
 	public override bool AllowRecieve() {return true;}
 	public override bool AllowSend() { return _count>0;}
 	public override void OnSuccessfullSend(GridCell gridCell)
 	{
-		Debug.Log("send?");
-		_count--;
-		UpdateText();
+		
+		{
+			_count--;
+			UpdateText();
+		}
 	}
 	private void UpdateIcon()
     {

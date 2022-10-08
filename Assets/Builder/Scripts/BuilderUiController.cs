@@ -15,7 +15,7 @@ public class BuilderUiController : MonoBehaviour
     [SerializeField]
     private AllElementsInfo _allElementsInfo;
     [SerializeField]
-    private GameObject _builderParent;
+    private SimulationController _simulationController;
 
     [Space(5)]
     [Header("Buttons")]
@@ -107,7 +107,7 @@ public class BuilderUiController : MonoBehaviour
                 }
                 var element = GameObject.Instantiate(gridElement.Cell.GetInfo().GetPrefab((int)gridElement.Cell.Rotation),gridElement.transform.position, Quaternion.Euler(new Vector3(0, 0, (int)gridElement.Cell.Rotation * 90)));
                 element.transform.position = gridElement.transform.position;
-                element.transform.SetParent(_builderParent.transform);
+                element.transform.SetParent(_simulationController.BuildParent.transform);
                 //element.GetComponent<GenericElement>().transform.rotation =);
                 elements[i, j] = element;
             }
@@ -141,5 +141,6 @@ public class BuilderUiController : MonoBehaviour
                 }
             }
         }
+		_simulationController.gameObject.SetActive(true);
     }
 }

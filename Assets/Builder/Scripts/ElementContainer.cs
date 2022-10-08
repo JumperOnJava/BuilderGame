@@ -54,6 +54,8 @@ public abstract class ElementContainer : MonoBehaviour, IBeginDragHandler, IEndD
 			return;
 		if (!(container.AllowSend() && AllowRecieve()))
 			return;
+		if (Cell.Type != ElementType.Empty)
+			return;
 		OnDropLogic(container);
 	}
 	public virtual void OnDropLogic(ElementContainer container)
