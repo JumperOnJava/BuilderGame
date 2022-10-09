@@ -11,6 +11,7 @@ public enum ElementType
     Laser,
     Wheel,
 	Core,
+	Battery,
 }
 public enum ElementRotation
 {

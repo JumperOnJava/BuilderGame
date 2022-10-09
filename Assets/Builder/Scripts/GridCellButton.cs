@@ -21,10 +21,6 @@ public class GridCellButton : ElementContainer ,IDropHandler
         this.width = width;
         UpdateIcon();
     }
-    public void OnClick()
-    {
-        //
-    }
     public void OnRotate()
     {
         Cell.Rotation = (ElementRotation)(((int)Cell.Rotation+3)%4);

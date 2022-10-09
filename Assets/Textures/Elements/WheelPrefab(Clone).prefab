@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6523875901382194863
+--- !u!1 &338575378901029286
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6523875901382194862}
-  - component: {fileID: 6523875901382194858}
-  - component: {fileID: 6523875901382194859}
-  - component: {fileID: 6523875901382194860}
-  - component: {fileID: 6523875901382194861}
+  - component: {fileID: 1589740772635252405}
+  - component: {fileID: 5162689016007359741}
+  - component: {fileID: 9055994703008542349}
+  - component: {fileID: 5411236757409207459}
+  - component: {fileID: 2813101934760634340}
   m_Layer: 0
   m_Name: WheelCenter
   m_TagString: Untagged
@@ -20,28 +20,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6523875901382194862
+--- !u!4 &1589740772635252405
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523875901382194863}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.25897425, z: 0}
+  m_GameObject: {fileID: 338575378901029286}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9069485, w: 0.42124158}
+  m_LocalPosition: {x: 0.00000032969416, y: -0.24999991, z: 0}
   m_LocalScale: {x: 0.8000001, y: 0.8000001, z: 0.8000001}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8867919186594624837}
+  m_Father: {fileID: 5892355214556152143}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6523875901382194858
+--- !u!212 &5162689016007359741
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523875901382194863}
+  m_GameObject: {fileID: 338575378901029286}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -87,14 +87,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &6523875901382194859
+--- !u!50 &9055994703008542349
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523875901382194863}
+  m_GameObject: {fileID: 338575378901029286}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -108,13 +108,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &6523875901382194860
+--- !u!58 &5411236757409207459
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523875901382194863}
+  m_GameObject: {fileID: 338575378901029286}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -124,17 +124,17 @@ CircleCollider2D:
   m_Offset: {x: 0.0000009536743, y: 0.00000023841858}
   serializedVersion: 2
   m_Radius: 1.2799999
---- !u!233 &6523875901382194861
+--- !u!233 &2813101934760634340
 HingeJoint2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523875901382194863}
+  m_GameObject: {fileID: 338575378901029286}
   m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 8085618682661601539}
+  m_ConnectedRigidBody: {fileID: 2701798592373492312}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
@@ -148,7 +148,7 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
---- !u!1 &8867919186594624843
+--- !u!1 &1756801178614161660
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,58 +156,61 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8867919186594624837}
-  - component: {fileID: 425922948066778381}
-  - component: {fileID: 8085618682661601539}
-  - component: {fileID: 72236941941989028}
-  - component: {fileID: 2548316197957088764}
+  - component: {fileID: 5892355214556152143}
+  - component: {fileID: 3256925318984410632}
+  - component: {fileID: 2701798592373492312}
+  - component: {fileID: 8356621888139390405}
+  - component: {fileID: 3233319975104151787}
+  - component: {fileID: 5185494303362936294}
   m_Layer: 0
-  m_Name: WheelPrefab
+  m_Name: WheelPrefab(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8867919186594624837
+--- !u!4 &5892355214556152143
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8867919186594624843}
-  m_LocalRotation: {x: -0, y: -0, z: 0.00000035762784, w: 1}
-  m_LocalPosition: {x: 0.00000005901526, y: -0.000000029802322, z: 0}
+  m_GameObject: {fileID: 1756801178614161660}
+  m_LocalRotation: {x: -0, y: -0, z: 0.71027386, w: 0.70392543}
+  m_LocalPosition: {x: 29.509594, y: -4.6055017, z: 0}
   m_LocalScale: {x: 0.39, y: 0.39, z: 0.39}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6523875901382194862}
+  - {fileID: 1589740772635252405}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &425922948066778381
+--- !u!114 &3256925318984410632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8867919186594624843}
+  m_GameObject: {fileID: 1756801178614161660}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e274500a45ec574ba5f00de63b7844d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outputs: []
-  _inputs: []
+  _outputs:
+  - {fileID: 0}
+  _inputs:
+  - {fileID: 0}
   _resistance: 1
-  _jointWheelHolder: {fileID: 8085618682661601539}
---- !u!50 &8085618682661601539
+  _jointWheelHolder: {fileID: 2701798592373492312}
+--- !u!50 &2701798592373492312
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8867919186594624843}
+  m_GameObject: {fileID: 1756801178614161660}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -221,13 +224,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!212 &72236941941989028
+--- !u!212 &8356621888139390405
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8867919186594624843}
+  m_GameObject: {fileID: 1756801178614161660}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -273,13 +276,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &2548316197957088764
+--- !u!60 &3233319975104151787
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8867919186594624843}
+  m_GameObject: {fileID: 1756801178614161660}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -301,3 +304,21 @@ PolygonCollider2D:
     - - {x: -1.28, y: 1.28}
       - {x: 1.28, y: 1.28}
       - {x: 0, y: 0}
+--- !u!255 &5185494303362936294
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756801178614161660}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: 1000
+  m_BreakTorque: 1000
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: -0.00000012945385, y: -1.0000099}
+  m_DampingRatio: 0
+  m_Frequency: 0
