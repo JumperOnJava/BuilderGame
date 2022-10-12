@@ -20,4 +20,10 @@ public enum ElementRotation
     R_180_Degrees=2,
     R_270_Degrees=3,
 }
+public enum CircuitElement
+{
+	None,
+	Sensor,
+	Engine
+}
 

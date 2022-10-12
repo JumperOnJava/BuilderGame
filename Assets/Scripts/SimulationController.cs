@@ -5,10 +5,7 @@ using UnityEngine;
 public class SimulationController : MonoBehaviour
 {
 	[SerializeField]
-	private Camera _camera => Camera.main;
-	[SerializeField]
 	private BuilderUiController _builderController;
-	[SerializeField]
 	public GameObject BuildParent;
 	private void OnEnable()
 	{
@@ -16,7 +13,6 @@ public class SimulationController : MonoBehaviour
 	}
 	public void ReturnToBuilder()
 	{
-		Debug.Log("click");
 		for (int i=0;i<BuildParent.transform.childCount;i++)
 		{
 			Destroy(BuildParent.transform.GetChild(i).gameObject);

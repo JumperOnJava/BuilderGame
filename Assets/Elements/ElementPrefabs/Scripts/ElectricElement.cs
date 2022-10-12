@@ -10,16 +10,10 @@ public abstract class ElectricElement : GenericElement
 {
 	[SerializeField]
 	protected List<ElectricElement> _outputs = new();
-	[SerializeField]
-	private List<ElectricElement> _inputs = new();
 	//private delegate void OnRecievedAllInputs(bool input);
 	public void AddOutput(ElectricElement output)
 	{
 		_outputs.Add(output);
-	}
-	public void AddInput(ElectricElement input)
-	{
-		_inputs.Add(input);
 	}
 	public abstract bool IsElementPassSignal();
 	public abstract void OnElementActive();
@@ -27,7 +21,6 @@ public abstract class ElectricElement : GenericElement
 	protected bool _resistance = true;
 	public virtual bool UpdateRecursive(bool stillComplete,int index)
 	{
-		Debug.Log($"{GetType()} Recieved {index}, still complete = {stillComplete}");
 		bool isLoopComplete = false;
 		if (!IsElementPassSignal())
 		{

@@ -31,7 +31,7 @@ public class ElementListButton : ElementContainer
 	{
 		_text.text = $"{Cell.Type} - {_count}";
 	}
-	public override void OnDropLogic(ElementContainer container)
+	public override void DropHandler(ElementContainer container)
 	{
 		foreach (ElementListButton btn in FindObjectsOfType<ElementListButton>())
 		{

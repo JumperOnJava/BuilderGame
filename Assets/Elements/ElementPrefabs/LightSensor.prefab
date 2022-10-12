@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4966472049842496284}
   - component: {fileID: 4966472049842496283}
   - component: {fileID: 7991680460618647684}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LightSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,6 +147,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _outputs: []
-  _inputs: []
-  _resistance: 1
-  active: 0

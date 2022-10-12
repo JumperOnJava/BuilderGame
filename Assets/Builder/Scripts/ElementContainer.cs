@@ -26,11 +26,12 @@ public abstract class ElementContainer : MonoBehaviour, IBeginDragHandler, IEndD
 	}
 	public void OnBeginDrag(PointerEventData eventData)
 	{
+		Debug.Log("Cocainer Started drag");
 		if (!ShouldDrag())
 			return;
 		_camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 		_dragSprite = new GameObject();
-		var sprite = _dragSprite.AddComponent<SpriteRenderer>();
+		SpriteRenderer sprite = _dragSprite.AddComponent<SpriteRenderer>();
 		sprite.sprite = Cell.GetInfo().Sprite;
 		sprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)Cell.Rotation*90));
 		sprite.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
@@ -56,12 +57,12 @@ public abstract class ElementContainer : MonoBehaviour, IBeginDragHandler, IEndD
 			return;
 		if (Cell.Type != ElementType.Empty)
 			return;
-		OnDropLogic(container);
+		DropHandler(container);
 	}
-	public virtual void OnDropLogic(ElementContainer container)
+	public virtual void DropHandler(ElementContainer container)
 	{
-		var c1 = container.Cell;
-		var c2 = Cell;
+		GridCell c1 = container.Cell;
+		GridCell c2 = Cell;
 		container.OnSuccessfullSend(c2);
 		OnSuccessfullRecieve(c1);
 	}

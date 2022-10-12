@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6523875901382194859}
   - component: {fileID: 6523875901382194860}
   - component: {fileID: 6523875901382194861}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WheelCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6523875901382194863}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.25897425, z: 0}
-  m_LocalScale: {x: 0.8000001, y: 0.8000001, z: 0.8000001}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8867919186594624837}
@@ -142,8 +142,8 @@ HingeJoint2D:
   m_ConnectedAnchor: {x: 0, y: -0.25}
   m_UseMotor: 0
   m_Motor:
-    m_MotorSpeed: 10
-    m_MaximumMotorForce: 10000
+    m_MotorSpeed: 720
+    m_MaximumMotorForce: 100
   m_UseLimits: 0
   m_AngleLimits:
     m_LowerAngle: 0
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 8085618682661601539}
   - component: {fileID: 72236941941989028}
   - component: {fileID: 2548316197957088764}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: WheelPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,8 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _outputs: []
-  _inputs: []
-  _resistance: 1
   _jointWheelHolder: {fileID: 8085618682661601539}
 --- !u!50 &8085618682661601539
 Rigidbody2D:
@@ -212,7 +210,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1

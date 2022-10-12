@@ -15,7 +15,8 @@ public class ElementInfo : ScriptableObject
     {
 		return ElementPrefab;   
     }
-    public bool Rotates;
+	public CircuitElement CircuitElement = CircuitElement.None;
+	public bool Rotates;
     [Space]
     [Header("Connections")]
     [SerializeField]

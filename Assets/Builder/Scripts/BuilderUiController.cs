@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -55,13 +56,13 @@ public class BuilderUiController : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
-        foreach (var element in _elementCount)
+        foreach (KeyValuePair<ElementType,int> element in _elementCount)
         {
             if (element.Value <= 0)
                 continue;
-            var button = GameObject.Instantiate(_elementListButtonTemplate);
-            var buttonEdit = button.GetComponent<ElementListButton>();
-            buttonEdit.Init(new GridCell(element.Key,_allElementsInfo.GetInfo(element.Key)), element.Value);
+            GameObject button = Instantiate(_elementListButtonTemplate);
+            ElementListButton buttonComponent = button.GetComponent<ElementListButton>();
+            buttonComponent.Init(new GridCell(element.Key,_allElementsInfo.GetInfo(element.Key)), element.Value);
             button.transform.SetParent(_elementList.transform);
         }
 		_elementList.GetComponentInParent<ElementReturnBox>().Init(new GridCell(ElementType.Empty, _allElementsInfo.GetInfo(ElementType.Empty)));
@@ -72,15 +73,15 @@ public class BuilderUiController : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
-        var gridEdit = _elementGrid.GetComponent<GridLayoutGroup>();
-        gridEdit.constraintCount = _builderData.GridWidth;
+        GridLayoutGroup gridObject = _elementGrid.GetComponent<GridLayoutGroup>();
+        gridObject.constraintCount = _builderData.GridWidth;
         for (int i = 0; i < _builderData.GridHeight; i++)
         {
             for (int j = 0; j < _builderData.GridWidth; j++)
             {
-                var gridCell = GameObject.Instantiate(_gridCellTemplate);
-                var gridCellEdit = gridCell.GetComponent<GridCellButton>();
-                gridCellEdit.Init(this, new GridCell(ElementType.Empty, _allElementsInfo.GetInfo(ElementType.Empty)), i, j);
+                GameObject gridCell = GameObject.Instantiate(_gridCellTemplate);
+                GridCellButton gridCellComponent = gridCell.GetComponent<GridCellButton>();
+                gridCellComponent.Init(this, new GridCell(ElementType.Empty, _allElementsInfo.GetInfo(ElementType.Empty)));
                 gridCell.transform.SetParent(_elementGrid.transform);
             }
         }
@@ -92,27 +93,33 @@ public class BuilderUiController : MonoBehaviour
     }
     public void StartLevel()
     {
-        gameObject.SetActive(false);
-        var gridTransform = _elementGrid.transform;
-        GameObject[,] elements = new GameObject[_builderData.GridHeight, _builderData.GridWidth];
+        Transform gridTransform = _elementGrid.transform;
+		GridCellButton[,] gridElements = new GridCellButton[_builderData.GridHeight, _builderData.GridWidth];
+		GameObject[,] elements = new GameObject[_builderData.GridHeight, _builderData.GridWidth];
+		for(int i =0;i< _builderData.GridHeight; i++)
+		{
+			for (int j = 0; j < _builderData.GridWidth; j++)
+			{
+				gridElements[i,j] = gridTransform.GetChild(i*_builderData.GridWidth+j).GetComponent<GridCellButton>();
+			}
+		}
         for (int i = 0; i < _builderData.GridHeight; i++)
         {
             for (int j = 0; j < _builderData.GridWidth; j++)
             {
-                var gridElement = gridTransform.GetChild(i*_builderData.GridWidth+j).GetComponent<ElementContainer>();
+				GridCellButton gridElement = gridElements[i, j];
                 if (gridElement.Cell.Type == ElementType.Empty)
                 {
                     elements[i, j] = null;
                     continue;
                 }
-                var element = GameObject.Instantiate(gridElement.Cell.GetInfo().GetPrefab((int)gridElement.Cell.Rotation),gridElement.transform.position, Quaternion.Euler(new Vector3(0, 0, (int)gridElement.Cell.Rotation * 90)));
+                GameObject element = GameObject.Instantiate(gridElement.Cell.GetInfo().GetPrefab((int)gridElement.Cell.Rotation),gridElement.transform.position, Quaternion.Euler(new Vector3(0, 0, (int)gridElement.Cell.Rotation * 90)));
                 element.transform.position = gridElement.transform.position;
                 element.transform.SetParent(_simulationController.BuildParent.transform);
-                //element.GetComponent<GenericElement>().transform.rotation =);
-                elements[i, j] = element;
-            }
-        }
-        //Debug.Break();
+				//element.GetComponent<GenericElement>().transform.rotation =);
+				elements[i, j] = element;
+			}
+		}
         for (int i = 0; i < _builderData.GridHeight; i++)
         {
             for (int j = 0; j < _builderData.GridWidth; j++)
@@ -122,7 +129,8 @@ public class BuilderUiController : MonoBehaviour
                 int[] i1 = { -1, 0, 1, 0 }; 
                 int[] j1 = { 0, 1, 0, -1 };
 
-                for (int k = 0; k < 4; k++)
+
+				for (int k = 0; k < 4; k++)
                 {
                     GameObject jointObject;
                     try
@@ -132,8 +140,8 @@ public class BuilderUiController : MonoBehaviour
                     catch { continue; }
                     if (jointObject == null)
                         continue;
-					var gridElement = gridTransform.GetChild(i * _builderData.GridWidth + j).GetComponent<ElementContainer>();
-					var gridElement2 = gridTransform.GetChild((i + i1[k]) * _builderData.GridWidth + (j + j1[k])).GetComponent<ElementContainer>();
+					GridCellButton gridElement = gridElements[i, j];
+					GridCellButton gridElement2 = gridElements[i + i1[k],j + j1[k]];
 
 					if (!(gridElement.Cell.ShouldConnect(k) && gridElement2.Cell.ShouldConnect(k + 2))) { continue; }
                     
@@ -141,6 +149,37 @@ public class BuilderUiController : MonoBehaviour
                 }
             }
         }
+		for (int i = 0; i < _builderData.GridHeight; i++)
+		{
+			Debug.Log(6);
+			for (int j = 0; j < _builderData.GridWidth; j++)
+			{
+				Debug.Log(5);
+				if (gridElements[i,j].WireDot.gameObject.activeInHierarchy)
+				{
+					Debug.Log(4);
+					Debug.Log($"{gridElements[i, j].WireDot.isActiveAndEnabled}[{i},{j}] - {gridElements[i, j].WireDot.GetWireDots().Count}");
+					foreach (InputWireNode output in gridElements[i, j].WireDot.GetWireDots())
+					{
+						Debug.Log(3);
+						for (int i2 = 0; i2 < _builderData.GridHeight; i2++)
+						{
+							Debug.Log(2);
+							for (int j2 = 0; j2 < _builderData.GridWidth; j2++)
+							{
+								Debug.Log(1);
+								if (gridElements[i2,j2].WireDot == output)
+								{
+									Debug.Log($"{elements[i, j].GetComponent<ElectricElement>().GetType()} outputs to {elements[i2, j2].GetComponent<ElectricElement>().GetType()}");
+									elements[i, j].GetComponent<ElectricElement>().AddOutput(elements[i2, j2].GetComponent<ElectricElement>());
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 		_simulationController.gameObject.SetActive(true);
     }
 }

@@ -14,12 +14,10 @@ public class WheelElement : EngineElement
 	{
 		var hinge = GetComponentInChildren<HingeJoint2D>();
 		hinge.useMotor = true;
-		Debug.Log($"{GetType()} is activated");
 	}
 	public override void OnInactiveThisFrame()
 	{
 		var hinge = GetComponentInChildren<HingeJoint2D>();
 		hinge.useMotor = false;
-		Debug.Log($"{GetType()} is deactivated");
 	}
 }

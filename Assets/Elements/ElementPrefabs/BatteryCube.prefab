@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4966472049842496284}
   - component: {fileID: 4966472049842496283}
   - component: {fileID: 8795291310151662378}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BatteryCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
@@ -146,5 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb780923c134034aaf232d3bbde65bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputs: []
   _outputs: []

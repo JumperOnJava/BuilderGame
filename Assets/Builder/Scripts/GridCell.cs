@@ -6,14 +6,14 @@ using UnityEngine;
 public struct GridCell
 {
 	public static GridCell EmptyCell;
-    private ElementInfo Info;
+	private ElementInfo Info;
     public ElementInfo GetInfo()
     {
         return Info;
     }
     public GridCell(ElementType type,ElementInfo info)
     {
-        Type = type;
+		Type = type;
         Info = info;
 		_rotation = ElementRotation.R_0_Degrees;
 		if (type == ElementType.Empty)

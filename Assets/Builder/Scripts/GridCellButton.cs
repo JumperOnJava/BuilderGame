@@ -12,20 +12,30 @@ public class GridCellButton : ElementContainer ,IDropHandler
     private Image _elementIcon; 
     [SerializeField]
     private GameObject _rotateButton;
-    private int height;
-    private int width;
-    public void Init(BuilderUiController controller,GridCell cell, int height, int width)
+    [SerializeField]
+	public InputWireNode WireDot;
+	private HashSet<GridCellButton> outputs;
+	public void ModifyOutput(GridCellButton cell)
+	{
+		if (outputs.Contains(cell))
+		{
+			outputs.Remove(cell);
+		}
+		else
+		{
+			outputs.Add(cell);
+		}
+	}
+	public void Init(BuilderUiController controller,GridCell cell)
     {
 		base.Init(cell);
-        this.height = height;  
-        this.width = width;
         UpdateIcon();
     }
     public void OnRotate()
     {
         Cell.Rotation = (ElementRotation)(((int)Cell.Rotation+3)%4);
-        UpdateIcon();
-    }
+        _elementIcon.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)Cell.Rotation * 90));
+	}
 	public override void OnSuccessfullRecieve(GridCell recieveObject)
 	{
 		Debug.Log("recieved "+recieveObject.Type);
@@ -42,8 +52,8 @@ public class GridCellButton : ElementContainer ,IDropHandler
 	public override bool AllowSend() { return true; }
 	private void UpdateIcon()
     {
-		_rotateButton.SetActive(Cell.GetInfo().Rotates);	
+		
+		_rotateButton.SetActive(Cell.GetInfo().Rotates);
 		_elementIcon.sprite = Cell.GetInfo().Sprite;
-        _elementIcon.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)Cell.Rotation * 90));
     }
 }

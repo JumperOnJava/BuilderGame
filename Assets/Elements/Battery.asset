@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: a98ca86fef118984691ec3cc28608759, type: 3}
   Name: Battery
-  ElementPrefab: {fileID: 0}
+  ElementPrefab: {fileID: 4966472049842496273, guid: dca0e46db7087d84e8247e203c3970b5, type: 3}
+  CircuitElement: 1
   Rotates: 0
   ConnectsUp: 1
   ConnectsDown: 1
