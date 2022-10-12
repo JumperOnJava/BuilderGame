@@ -56,6 +56,9 @@ public class InputWireNode : MonoBehaviour, IDropHandler
 		else
 			outputs.Add(wireDot);
 		if (outputs.Count == 1)
+		{
+
+		}
 		UpdateLines();
 		wireDot.OnDotHide += OnDisableHandler;
 	}
@@ -88,11 +91,12 @@ public class InputWireNode : MonoBehaviour, IDropHandler
 	public void DisableNode()
 	{
 		OnDotHide += (_) => { };
-		foreach(InputWireNode node in outputs)
+		foreach(var output in outputs)
 		{
-			RemoveOutput(node);
+
 		}
 		OnDotHide.Invoke(this);
+		outputs.Clear();
 		foreach (Transform child in transform)
 		{
 			Destroy(child.gameObject);

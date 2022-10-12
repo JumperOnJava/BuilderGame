@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _outputs: []
   _jointWheelHolder: {fileID: 8085618682661601539}
+  _wheel: {fileID: 6523875901382194859}
 --- !u!50 &8085618682661601539
 Rigidbody2D:
   serializedVersion: 4
@@ -296,6 +297,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.28, y: 1.28}
+    - - {x: -1.28, y: 0.9}
+      - {x: -1.28, y: 1.28}
       - {x: 1.28, y: 1.28}
-      - {x: 0, y: 0}
+      - {x: 1.28, y: 0.9}
+      - {x: 0, y: -0.4}

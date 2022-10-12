@@ -52,7 +52,14 @@ public class GridCellButton : ElementContainer ,IDropHandler
 	public override bool AllowSend() { return true; }
 	private void UpdateIcon()
     {
-		
+		if(Cell.GetInfo().CircuitElement == CircuitElement.None)
+		{
+			WireDot.DisableNode();
+		}
+		else
+		{
+			WireDot.EnableNode();
+		}
 		_rotateButton.SetActive(Cell.GetInfo().Rotates);
 		_elementIcon.sprite = Cell.GetInfo().Sprite;
     }

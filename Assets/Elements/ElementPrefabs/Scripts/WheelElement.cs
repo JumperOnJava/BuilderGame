@@ -6,18 +6,22 @@ public class WheelElement : EngineElement
 {
     [SerializeField]
     private Rigidbody2D _jointWheelHolder;
-    public override GameObject GetJointObject()
+	[SerializeField]
+	private Rigidbody2D _wheel;
+
+	public override GameObject GetJointObject()
     {
         return _jointWheelHolder.gameObject;
     }
 	public override void OnActiveThisFrame()
 	{
-		var hinge = GetComponentInChildren<HingeJoint2D>();
-		hinge.useMotor = true;
+		_wheel.AddTorque(-Time.deltaTime * 300);
+		//var hinge = GetComponentInChildren<HingeJoint2D>();
+
 	}
 	public override void OnInactiveThisFrame()
 	{
-		var hinge = GetComponentInChildren<HingeJoint2D>();
-		hinge.useMotor = false;
+		//var hinge = GetComponentInChildren<HingeJoint2D>();
+		//hinge.useMotor = false;
 	}
 }
