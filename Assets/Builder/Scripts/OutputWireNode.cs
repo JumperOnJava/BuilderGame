@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D;
 
-public class OutputWireNode : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class OutputWireNode : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
 	[SerializeField]
 	public SpriteShape SpriteShape;
@@ -57,5 +57,11 @@ public class OutputWireNode : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 	public void EnableNode()
 	{
 		gameObject.SetActive(true);
+	}
+
+	public void OnDrop(PointerEventData eventData)
+	{
+		InputWireNode recievedInput = eventData.selectedObject.GetComponent<InputWireNode>();
+		InputNode.AddOutput(recievedInput);
 	}
 }

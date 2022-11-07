@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D;
-public class InputWireNode : MonoBehaviour, IDropHandler
+public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 	
 	public delegate void OnDisableHanlder(InputWireNode wireDot);
@@ -18,6 +18,9 @@ public class InputWireNode : MonoBehaviour, IDropHandler
 	private GameObject _wireObjectPrefab;
 	[SerializeField]
 	private Transform _wireParentun;
+
+	private Spline _spline;
+	private UnityEngine.Object _wireObject;
 
 	public List<InputWireNode> GetWireDots()
 	{
@@ -48,16 +51,17 @@ public class InputWireNode : MonoBehaviour, IDropHandler
 		if (outputs.Count == 0)
 		UpdateLines();
 	}
-	private void AddOutput(InputWireNode wireDot)
+	public void AddOutput(InputWireNode wireDot)
 	{
-		if (outputs.Contains(wireDot))
+		/*if (outputs.Contains(wireDot))
 			outputs.Remove(wireDot);
-		else
+		else*/
+		if (wireDot != this)
 			outputs.Add(wireDot);
-		if (outputs.Count == 1)
+		/*if (outputs.Count == 1)
 		{
 
-		}
+		}*/
 		UpdateLines();
 		wireDot.OnDotHide += OnDisableHandler;
 	}
@@ -115,4 +119,37 @@ public class InputWireNode : MonoBehaviour, IDropHandler
 		gameObject.SetActive(true);
 	}
 
+	public void OnBeginDrag(PointerEventData eventData)
+	{
+		//Debug.Log("WireDot Started drag");
+		_wireObject = new GameObject();
+		var controller = _wireObject.AddComponent<SpriteShapeController>();
+		controller.spriteShape = SpriteShape;
+		controller.splineDetail = 4;
+		_spline = controller.spline;
+		_spline.isOpenEnded = true;
+	}
+
+	public void OnDrag(PointerEventData eventData)
+	{
+
+		_spline.RemovePointAt(1);
+		_spline.RemovePointAt(0);
+
+		_spline.InsertPointAt(0, GetComponent<RectTransform>().position);
+		_spline.InsertPointAt(1, Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition));
+		_spline.RemovePointAt(2);
+		_spline.RemovePointAt(2);
+
+		//Debug.Log(_spline.GetPointCount());
+	}
+
+	public void OnEndDrag(PointerEventData eventData)
+	{
+		Destroy(_wireObject);
+		var selobj = eventData.selectedObject;
+		var comp = GetComponent<InputWireNode>();
+		var inputNode = comp;
+		inputNode.AddOutput(this);
+	}
 }

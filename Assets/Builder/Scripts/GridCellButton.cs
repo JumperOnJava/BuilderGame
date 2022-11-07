@@ -30,11 +30,8 @@ public class GridCellButton : ElementContainer ,IDropHandler
 	}
 	public void Init(BuilderUiController controller,GridCell cell)
     {
-		Debug.Log("here121");
 		base.Init(cell);
-		Debug.Log("here122");
         UpdateIcon();
-		Debug.Log("here123");
 	}
 	public void OnRotate()
     {
