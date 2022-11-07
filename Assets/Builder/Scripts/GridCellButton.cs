@@ -13,7 +13,9 @@ public class GridCellButton : ElementContainer ,IDropHandler
     [SerializeField]
     private GameObject _rotateButton;
     [SerializeField]
-	public InputWireNode WireDot;
+	public OutputWireNode WireNodePlus;
+    [SerializeField]
+	public InputWireNode WireNodeMinus;
 	private HashSet<GridCellButton> outputs;
 	public void ModifyOutput(GridCellButton cell)
 	{
@@ -28,23 +30,26 @@ public class GridCellButton : ElementContainer ,IDropHandler
 	}
 	public void Init(BuilderUiController controller,GridCell cell)
     {
+		Debug.Log("here121");
 		base.Init(cell);
+		Debug.Log("here122");
         UpdateIcon();
-    }
-    public void OnRotate()
+		Debug.Log("here123");
+	}
+	public void OnRotate()
     {
         Cell.Rotation = (ElementRotation)(((int)Cell.Rotation+3)%4);
         _elementIcon.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)Cell.Rotation * 90));
 	}
 	public override void OnSuccessfullRecieve(GridCell recieveObject)
 	{
-		Debug.Log("recieved "+recieveObject.Type);
+		//Debug.Log("recieved "+recieveObject.Type);
 		this.Cell = recieveObject;
 		UpdateIcon();
 	}
 	public override void OnSuccessfullSend(GridCell sendObject)
 	{
-		Debug.Log("recieved " + sendObject.Type);
+		//Debug.Log("recieved " + sendObject.Type);
 		this.Cell = sendObject;
 		UpdateIcon();
 	}
@@ -54,13 +59,15 @@ public class GridCellButton : ElementContainer ,IDropHandler
     {
 		if(Cell.GetInfo().CircuitElement == CircuitElement.None)
 		{
-			WireDot.DisableNode();
+			WireNodePlus.DisableNode();
+			WireNodeMinus.DisableNode();
 		}
 		else
 		{
-			WireDot.EnableNode();
+			WireNodePlus.EnableNode();
+			WireNodeMinus.EnableNode();
 		}
 		_rotateButton.SetActive(Cell.GetInfo().Rotates);
 		_elementIcon.sprite = Cell.GetInfo().Sprite;
-    }
+	}
 }

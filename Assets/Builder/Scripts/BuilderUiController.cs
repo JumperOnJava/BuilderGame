@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -13,6 +14,12 @@ public class BuilderUiController : MonoBehaviour
     [Header("LevelData")]
     [SerializeField]
     private BuilderData _builderData;
+	public BuilderData BuilderData
+	{
+		get { return _builderData; }
+		set { _builderData = value; }
+	}
+
     [SerializeField]
     private AllElementsInfo _allElementsInfo;
     [SerializeField]
@@ -35,16 +42,18 @@ public class BuilderUiController : MonoBehaviour
     [SerializeField]
     private GameObject _elementGrid;
     [SerializeField]
+    private GameObject _IOGrid;
+    [SerializeField]
     private GameObject _gridCellTemplate;
 
     private Dictionary<ElementType, int> _elementCount;
 
-    //private List<List<GridCell>> _gridData;
-    
-    private void Start()
+	//private List<List<GridCell>> _gridData;
+	public void Init(BuilderData builderData)
     {
-        //_gridData = new List<List<GridCell>>.Data;
-        _elementCount = new Dictionary<ElementType, int>(_builderData.Elements);
+		_builderData = builderData;
+		//_gridData = new List<List<GridCell>>.Data;
+		_elementCount = new Dictionary<ElementType, int>(_builderData.Elements);
         _startLevelButton.Init(this);
         InitButtons();
         InitGrid();
@@ -71,20 +80,24 @@ public class BuilderUiController : MonoBehaviour
     {
         foreach (Transform child in _elementGrid.transform)
         {
-            GameObject.Destroy(child.gameObject);
+            Destroy(child.gameObject);
         }
         GridLayoutGroup gridObject = _elementGrid.GetComponent<GridLayoutGroup>();
         gridObject.constraintCount = _builderData.GridWidth;
+		_IOGrid.GetComponent<GridLayoutGroup>().constraintCount= _builderData.GridWidth;
         for (int i = 0; i < _builderData.GridHeight; i++)
         {
             for (int j = 0; j < _builderData.GridWidth; j++)
             {
-                GameObject gridCell = GameObject.Instantiate(_gridCellTemplate);
-                GridCellButton gridCellComponent = gridCell.GetComponent<GridCellButton>();
+				GameObject gridCell = Instantiate(_gridCellTemplate);
+				GridCellButton gridCellComponent = gridCell.GetComponent<GridCellButton>();
                 gridCellComponent.Init(this, new GridCell(ElementType.Empty, _allElementsInfo.GetInfo(ElementType.Empty)));
-                gridCell.transform.SetParent(_elementGrid.transform);
-            }
-        }
+				Debug.Log(gridCell.name);
+				Debug.Log(gridCell == null);
+				gridCell.transform.SetParent(_elementGrid.transform);
+				Debug.Log(gridCell.transform.parent.name);
+			}
+		}
     }
     public void SelectElementType(ElementType elementType)
     {
@@ -151,26 +164,26 @@ public class BuilderUiController : MonoBehaviour
         }
 		for (int i = 0; i < _builderData.GridHeight; i++)
 		{
-			Debug.Log(6);
+			//Debug.Log(6);
 			for (int j = 0; j < _builderData.GridWidth; j++)
 			{
-				Debug.Log(5);
-				if (gridElements[i,j].WireDot.gameObject.activeInHierarchy)
+				//Debug.Log(5);
+				if (gridElements[i,j].WireNodeMinus.gameObject.activeInHierarchy)
 				{
-					Debug.Log(4);
-					Debug.Log($"{gridElements[i, j].WireDot.isActiveAndEnabled}[{i},{j}] - {gridElements[i, j].WireDot.GetWireDots().Count}");
-					foreach (InputWireNode output in gridElements[i, j].WireDot.GetWireDots())
+					//Debug.Log(4);
+					//Debug.Log($"{gridElements[i, j].WireNodeMinus.isActiveAndEnabled}[{i},{j}] - {gridElements[i, j].WireNodeMinus.GetWireDots().Count}");
+					foreach (InputWireNode output in gridElements[i, j].WireNodeMinus.GetWireDots())
 					{
-						Debug.Log(3);
+						//Debug.Log(3);
 						for (int i2 = 0; i2 < _builderData.GridHeight; i2++)
 						{
-							Debug.Log(2);
+							//Debug.Log(2);
 							for (int j2 = 0; j2 < _builderData.GridWidth; j2++)
 							{
-								Debug.Log(1);
-								if (gridElements[i2,j2].WireDot == output)
+								//Debug.Log(1);
+								if (gridElements[i2,j2].WireNodeMinus == output)
 								{
-									Debug.Log($"{elements[i, j].GetComponent<ElectricElement>().GetType()} outputs to {elements[i2, j2].GetComponent<ElectricElement>().GetType()}");
+									//Debug.Log($"{elements[i, j].GetComponent<ElectricElement>().GetType()} outputs to {elements[i2, j2].GetComponent<ElectricElement>().GetType()}");
 									elements[i, j].GetComponent<ElectricElement>().AddOutput(elements[i2, j2].GetComponent<ElectricElement>());
 									break;
 								}
@@ -181,5 +194,6 @@ public class BuilderUiController : MonoBehaviour
 			}
 		}
 		_simulationController.gameObject.SetActive(true);
+		Camera.main.GetComponent<CameraMovement>().UpdateCenterElements(FindObjectsOfType<GenericElement>().ToList());
     }
 }

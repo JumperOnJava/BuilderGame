@@ -13,8 +13,6 @@ using System.ComponentModel;
 
 public class ElementListButton : ElementContainer
 {
-	[SerializeField]
-	private RectTransform _rectTransform;
     [SerializeField]
     private TextMeshProUGUI _text;
     [SerializeField]
@@ -29,10 +27,11 @@ public class ElementListButton : ElementContainer
 	}
 	private void UpdateText()
 	{
-		_text.text = $"{Cell.Type} - {_count}";
+		_text.text = $"{Cell.GetInfo().Name} - {_count}";
 	}
 	public override void DropHandler(ElementContainer container)
 	{
+		Debug.Log("drop on list");
 		foreach (ElementListButton btn in FindObjectsOfType<ElementListButton>())
 		{
 			Debug.Log("searching " + container.Cell.Type + " but found " + btn.Cell);

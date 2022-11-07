@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: Laser
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 0c8dd4fbd8883464e9b44ef0a73c99b5, type: 3}
-  Name: Laser
+  Name: "\u041B\u0430\u0437\u0435\u0440"
+  ElementPrefab: {fileID: 0}
+  CircuitElement: 0
+  Rotates: 0
+  ConnectsUp: 1
+  ConnectsDown: 1
+  ConnectsLeft: 1
+  ConnectsRight: 1

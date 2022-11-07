@@ -15,4 +15,10 @@ public static class CustomVectorFunctions
     {
         return new Vector3(thisVector.x * (1/vector.x),thisVector.y * (1/vector.y),thisVector.z * (1/vector.z));
     }
+	public static float GetAngleBetween(Vector2 a,Vector2 b)
+	{
+		Vector2 dir = b - a;
+		dir.Normalize();
+		return Mathf.Atan2(dir.y,dir.x) * 57.2958f; //функція видає кут в радіанах, а 1 радіан - приблизно 57.2958 градусів 
+	}
 }

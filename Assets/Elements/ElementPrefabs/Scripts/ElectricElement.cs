@@ -19,7 +19,7 @@ public abstract class ElectricElement : GenericElement
 	public abstract void OnElementActive();
 
 	protected bool _resistance = true;
-	public virtual bool UpdateRecursive(bool stillComplete,int index)
+	public virtual bool UpdateRecursive(bool stillComplete, int index, BatteryElement battery)
 	{
 		bool isLoopComplete = false;
 		if (!IsElementPassSignal())
@@ -28,25 +28,11 @@ public abstract class ElectricElement : GenericElement
 		}
 		foreach (var output in _outputs)
 		{
-			isLoopComplete = isLoopComplete|| output.UpdateRecursive(stillComplete, index + (_resistance ? 1 : 0));
+			isLoopComplete = isLoopComplete|| output.UpdateRecursive(stillComplete, index + (_resistance ? 1 : 0), battery);
 		}
 		if (isLoopComplete)
 			OnElementActive();
 		//Debug.Log(this.GetType().ToString()+isLoopComplete);
 		return isLoopComplete;
-	}
-
-	public bool CheckLoop(int index)
-	{
-		if (index > 1000)
-			throw new System.Exception("BatteryNotFound");
-		bool foundBattery = false;
-		foreach(ElectricElement electricElement in _outputs)
-		{
-			if (electricElement is BatteryElement)
-				return true;
-			foundBattery = foundBattery || electricElement.CheckLoop(index+1);
-		}
-		return foundBattery;
 	}
 }

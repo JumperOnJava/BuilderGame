@@ -6,31 +6,32 @@ public class BatteryElement : ElectricElement
 {
 	public override bool IsElementPassSignal()
 	{
-		var loop = false;
-		try
-		{
-			loop=CheckLoop(0);
-		}
-		catch
-		{
-			loop = false;
-		}
-		Debug.Log(loop);
-		return loop;
+		return true;
 	}
 
 	public override void OnElementActive(){}
 
-	public override bool UpdateRecursive(bool input,int index)
+	public override bool UpdateRecursive(bool input,int index,BatteryElement battery)
 	{
-		Debug.Log($"Battery Recieved {index}:{input}");
-		return input && index > 0;
+		//Debug.Log($"Battery Recieved {index}:{input}");
+		if (index == 0)
+			throw new System.Exception("Short circuit");
+		if(battery==this)
+		return input && index > 0 && battery == this;
+		else return base.UpdateRecursive(input,index,battery);
 	}
 	private void Update()
 	{
 		foreach(var element in _outputs)
 		{
-			element.UpdateRecursive(true, 0);
+			try
+			{
+				element.UpdateRecursive(true, 0, this);
+			}
+			catch
+			{
+
+			}
 		}
 	}
 }

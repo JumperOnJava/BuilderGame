@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Empty
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 4713172c62d322b47b616c0f191412e8, type: 3}
-  Name: Empty
+  Name: "\u041F\u043E\u043C\u0438\u043B\u043A\u0430"
   ElementPrefab: {fileID: 4966472049842496273, guid: cdbe08bcc59fdcb43a73fe9bf59c036d, type: 3}
   CircuitElement: 0
   Rotates: 0

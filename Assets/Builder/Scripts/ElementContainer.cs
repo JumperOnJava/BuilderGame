@@ -25,8 +25,7 @@ public abstract class ElementContainer : MonoBehaviour, IBeginDragHandler, IEndD
 		return true;
 	}
 	public void OnBeginDrag(PointerEventData eventData)
-	{
-		Debug.Log("Cocainer Started drag");
+	{ 
 		if (!ShouldDrag())
 			return;
 		_camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -48,16 +47,22 @@ public abstract class ElementContainer : MonoBehaviour, IBeginDragHandler, IEndD
 	}
 	public void OnDrop(PointerEventData eventData)
 	{
-		if (!eventData.selectedObject.TryGetComponent<ElementContainer>(out var _))
-			return;
-		var container = eventData.selectedObject.GetComponent<ElementContainer>();
-		if (container == null)
-			return;
-		if (!(container.AllowSend() && AllowRecieve()))
-			return;
-		if (Cell.Type != ElementType.Empty)
-			return;
-		DropHandler(container);
+		try
+		{
+			if (!eventData.selectedObject.TryGetComponent<ElementContainer>(out var _))
+				return;
+			var container = eventData.selectedObject.GetComponent<ElementContainer>();
+			if (container == null)
+				return;
+			if (!(container.AllowSend() && AllowRecieve()))
+				return;
+			if (GetType() != typeof(ElementListButton))
+			if (Cell.Type != ElementType.Empty)
+				return;
+			DropHandler(container);
+		}
+		catch { };
+
 	}
 	public virtual void DropHandler(ElementContainer container)
 	{

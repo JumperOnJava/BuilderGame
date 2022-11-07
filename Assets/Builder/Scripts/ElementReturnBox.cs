@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class ElementReturnBox : ElementContainer, IDropHandler
 	{
 		foreach (ElementListButton btn in _listParent.transform.GetComponentsInChildren<ElementListButton>())
 		{
+			Debug.Log($"{btn.Cell.Type} =? {recieveCell.Type}");
 			if (btn.Cell.Type == recieveCell.Type)
 			{
 				btn.OnSuccessfullRecieve(recieveCell);

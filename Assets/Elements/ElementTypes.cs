@@ -12,6 +12,8 @@ public enum ElementType
     Wheel,
 	Core,
 	Battery,
+	Propeller,
+	BasicWheel // Колесо яке використовується для першого рівня і не є електричним елементом
 }
 public enum ElementRotation
 {

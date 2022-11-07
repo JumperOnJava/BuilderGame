@@ -10,13 +10,15 @@ public class InputWireNode : MonoBehaviour, IDropHandler
 	
 	public delegate void OnDisableHanlder(InputWireNode wireDot);
 	public event OnDisableHanlder OnDotHide;
-	public delegate void OnRecieveOutput();
-	public event OnRecieveOutput OnRecievedFirstOutput;
-	public delegate void OnDeleteOutput();
-	public event OnDeleteOutput OnDeletedLastOutput;
-	
+	public OutputWireNode OutputNode;
 	public SpriteShape SpriteShape;
 	private HashSet<InputWireNode> outputs = new();
+	private List<ConnectionWireRespresentation> wires = new();
+	[SerializeField]
+	private GameObject _wireObjectPrefab;
+	[SerializeField]
+	private Transform _wireParentun;
+
 	public List<InputWireNode> GetWireDots()
 	{
 		List<InputWireNode> _outputList = new();
@@ -28,20 +30,17 @@ public class InputWireNode : MonoBehaviour, IDropHandler
 	}
 	public void OnDrop(PointerEventData eventData)
 	{
-		if (eventData.selectedObject == gameObject)
+		if (eventData.selectedObject == OutputNode.gameObject)
 			return;
-		Debug.Log($"Recieved Drop Event from {eventData.selectedObject}");
+		//Debug.Log($"Recieved Drop Event from {eventData.selectedObject}");
 		var node = eventData.selectedObject.GetComponent<OutputWireNode>();
-		if (node.InputDot.outputs.Contains(this) || outputs.Contains(node.InputDot))
+		/*if (node.InputNode.outputs.Contains(this) || outputs.Contains(node.InputNode))
 		{
-			RemoveOutput(node.InputDot);
-			node.InputDot.RemoveOutput(this);
+			RemoveOutput(node.InputNode);
+			node.InputNode.RemoveOutput(this);
 		}
-		else
-		{
-			node.InputDot.AddOutput(this);
-		}
-		node.OutputAdded();
+		else*/
+		node.InputNode.AddOutput(this);
 	}
 	public void RemoveOutput(InputWireNode wireDot)
 	{
@@ -64,43 +63,50 @@ public class InputWireNode : MonoBehaviour, IDropHandler
 	}
 	private void UpdateLines()
 	{
-		foreach (Transform child in transform)
+		foreach (var wire in wires)
 		{
-			Destroy(child.gameObject);
+			Destroy(wire.gameObject);
 		}
+		wires.Clear();
+		Transform parent = FindObjectOfType<GridLayerInfo>().WireLayer.transform;
 		foreach (InputWireNode line in outputs)
 		{
 			Vector3 pos1 = line.GetComponent<RectTransform>().position;
-			Vector3 pos2 = GetComponent<RectTransform>().position;
-			GameObject lineObject = new();
+			Vector3 pos2 = OutputNode.GetComponent<RectTransform>().position;
+			GameObject lineObject = Instantiate(_wireObjectPrefab);
 			lineObject.transform.SetParent(transform);
-			var controller = lineObject.AddComponent<SpriteShapeController>();
-			var spline = controller.spline;
-			controller.spriteShape = SpriteShape;
-			controller.splineDetail = 4;
-			spline.isOpenEnded = true;
-			spline.InsertPointAt(0, pos1);
-			spline.InsertPointAt(1, pos2);
+			lineObject.transform.position = (pos1 + pos2) / 2;
+			lineObject.transform.localScale = Vector3.one;
+			var rt = lineObject.GetComponent<RectTransform>();
+			rt.sizeDelta = new Vector2(Vector3.Distance(pos2, pos1)*100+25, 25);
+			Debug.Log($"{pos1};;;{pos2}");
+			rt.rotation = Quaternion.Euler(0, 0, CustomVectorFunctions.GetAngleBetween(pos1,pos2));
+			rt.position = new Vector3(rt.position.x, rt.position.y,100);
+			ConnectionWireRespresentation wire = lineObject.GetComponent<ConnectionWireRespresentation>();
+			wire.onPressed += () => RemoveOutput(line);
+			Debug.Log("finished creating line");
+			wires.Add(wire);
+			rt.SetParent(parent);
+			rt.sizeDelta = new Vector2(Vector3.Distance(pos2, pos1)*100+25, 25);
 		}
 	}
 	private void OnDisableHandler(InputWireNode disablingDot)
 	{
 		Debug.Log($"wireDot {disablingDot}");
 		RemoveOutput(disablingDot);
+		UpdateLines();
 	}
 	public void DisableNode()
 	{
-		OnDotHide += (_) => { };
-		foreach(var output in outputs)
-		{
-
-		}
+		OnDotHide += (_)=> { };
 		OnDotHide.Invoke(this);
 		outputs.Clear();
-		foreach (Transform child in transform)
+		foreach (var wire in wires)
 		{
-			Destroy(child.gameObject);
+			Destroy(wire.gameObject);
 		}
+		wires.Clear();
+		UpdateLines();
 		gameObject.SetActive(false);
 	}
 

@@ -6,7 +6,7 @@ public abstract class EngineElement : ElectricElement
 {
 	private bool activeThisFrame = false;
 	//public bool IsInverted = false;
-	public void Awake()
+	public void Start()
 	{
 		_resistance = true;
 	}

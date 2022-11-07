@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SimulationController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SimulationController : MonoBehaviour
 	{
 		_builderController.gameObject.SetActive(false);
 	}
+
 	public void ReturnToBuilder()
 	{
 		for (int i=0;i<BuildParent.transform.childCount;i++)
@@ -19,5 +21,12 @@ public class SimulationController : MonoBehaviour
 		}
 		_builderController.gameObject.SetActive(true);
 		gameObject.SetActive(false);
+
+		Camera.main.GetComponent<CameraMovement>().enabled = true;
+		Camera.main.GetComponent<CameraMovement>().MoveTargetPosTo(_builderController.gameObject);
+	}
+	private void OnDisable()
+	{
+		ReturnToBuilder();
 	}
 }

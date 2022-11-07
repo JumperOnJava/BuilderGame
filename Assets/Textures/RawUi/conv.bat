@@ -1,0 +1,1 @@
+powershell -Command .\script.ps1

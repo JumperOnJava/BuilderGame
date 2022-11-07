@@ -12,46 +12,50 @@ public class OutputWireNode : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 	public SpriteShape SpriteShape;
 	private GameObject _wireObject;
 	private Spline _spline;
-	public InputWireNode InputDot;
-
-	public delegate void OnOutputAdded();
-	public event OnOutputAdded OnOutputCreated;
+	public InputWireNode InputNode;
+	
 
 	public long RandID;
 	public void Awake()
 	{
 		RandID = (long)UnityEngine.Random.Range(0, int.MaxValue);
 	}
-	public void OutputAdded()
-	{
-		//OnOutputCreated();
-	}
-	public void Update()
-	{
-		//InputDot.GetWireDots();
-	}
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		Debug.Log("WireDot Started drag");
+		//Debug.Log("WireDot Started drag");
 		_wireObject = new GameObject();
 		var controller = _wireObject.AddComponent<SpriteShapeController>();
 		controller.spriteShape = SpriteShape;
 		controller.splineDetail = 4;
 		_spline = controller.spline;
 		_spline.isOpenEnded = true;
-		_spline.InsertPointAt(0, GetComponent<RectTransform>().position);
-		_spline.InsertPointAt(1, GetComponent<RectTransform>().position);
 	}
 
 	public void OnDrag(PointerEventData eventData)
 	{
+
 		_spline.RemovePointAt(1);
-		_spline.InsertPointAt(1, Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition));
+		_spline.RemovePointAt(0);
+
+		_spline.InsertPointAt(0, Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition));
+		_spline.InsertPointAt(1, GetComponent<RectTransform>().position);
+		_spline.RemovePointAt(2);
+		_spline.RemovePointAt(2);
+
+		//Debug.Log(_spline.GetPointCount());
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
 		Destroy(_wireObject);
+
 	}
-	
+	public void DisableNode()
+	{
+		gameObject.SetActive(false);
+	}
+	public void EnableNode()
+	{
+		gameObject.SetActive(true);
+	}
 }

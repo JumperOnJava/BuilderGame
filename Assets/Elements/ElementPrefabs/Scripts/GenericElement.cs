@@ -5,20 +5,19 @@ using System.Threading;
 using UnityEngine;
 public abstract class GenericElement : MonoBehaviour
 {
-    public virtual void ConnectWith(GameObject connectObject)
-    {
-        if (connectObject == null)
-            return;
-        var allJoints = connectObject.GetComponents<FixedJoint2D>();
+	public virtual void ConnectWith(GameObject connectObject)
+	{
+		if (connectObject == null)
+			return;
+		var allJoints = connectObject.GetComponents<FixedJoint2D>();
 
-
-        var joint = gameObject.AddComponent<FixedJoint2D>();
+		var joint = gameObject.AddComponent<FixedJoint2D>();
 		//joint.breakTorque = 1000;
 		//joint.breakForce = 1000;
-		joint.dampingRatio = 0.5f;
 		joint.autoConfigureConnectedAnchor = true;
-        joint.connectedBody = connectObject.GetComponent<Rigidbody2D>();
-    }
+		joint.connectedBody = connectObject.GetComponent<Rigidbody2D>();
+
+	}
     public virtual GameObject GetJointObject()
     {
         return gameObject;
