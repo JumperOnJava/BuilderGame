@@ -36,7 +36,7 @@ public class GridCellButton : ElementContainer ,IDropHandler
 	public void OnRotate()
     {
         Cell.Rotation = (ElementRotation)(((int)Cell.Rotation+3)%4);
-        _elementIcon.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)Cell.Rotation * 90));
+		UpdateIcon();
 	}
 	public override void OnSuccessfullRecieve(GridCell recieveObject)
 	{
@@ -54,7 +54,8 @@ public class GridCellButton : ElementContainer ,IDropHandler
 	public override bool AllowSend() { return true; }
 	private void UpdateIcon()
     {
-		if(Cell.GetInfo().CircuitElement == CircuitElement.None)
+		_elementIcon.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)Cell.Rotation * 90));
+		if (Cell.GetInfo().CircuitElement == CircuitElement.None)
 		{
 			WireNodePlus.DisableNode();
 			WireNodeMinus.DisableNode();

@@ -9,7 +9,15 @@ public class ConnectionWireRespresentation : MonoBehaviour
 	public event OnPressed onPressed;
 	public void OnClick()
 	{
-		Debug.Log("clicked on wire");
 		onPressed.Invoke();
+
+		var objects = FindObjectsOfType<InputWireNode>();
+		foreach (var object_ in objects)
+		{
+			object_.UpdateLines();
+		}
+
+
+		Debug.Log("clicked on wire");
 	}
 }

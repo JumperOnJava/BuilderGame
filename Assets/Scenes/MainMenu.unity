@@ -241,6 +241,8 @@ MonoBehaviour:
   _levels:
   - {fileID: 11400000, guid: 95ce4b22bc392134c926ef293d7f9779, type: 2}
   - {fileID: 11400000, guid: 9264bd11232bc1e4a9e0d8481c5a0ada, type: 2}
+  - {fileID: 11400000, guid: b536344a0f1385f4abb903a1872824a5, type: 2}
+  - {fileID: 11400000, guid: e1e1a10c756172748ba2cc63298bdc7c, type: 2}
   - {fileID: 11400000, guid: 63133a896c5c2c7479b0878be9e9e121, type: 2}
   _playButton: {fileID: 1910801921}
   _levelMenu: {fileID: 1023698657}

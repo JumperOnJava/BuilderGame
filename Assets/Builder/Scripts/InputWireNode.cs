@@ -65,7 +65,7 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 		UpdateLines();
 		wireDot.OnDotHide += OnDisableHandler;
 	}
-	private void UpdateLines()
+	public void UpdateLines()
 	{
 		foreach (var wire in wires)
 		{
@@ -88,6 +88,7 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 			rt.position = new Vector3(rt.position.x, rt.position.y,100);
 			ConnectionWireRespresentation wire = lineObject.GetComponent<ConnectionWireRespresentation>();
 			wire.onPressed += () => RemoveOutput(line);
+			wire.onPressed += () => line.UpdateLines();
 			Debug.Log("finished creating line");
 			wires.Add(wire);
 			rt.SetParent(parent);
