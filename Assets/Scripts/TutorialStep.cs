@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+/// <summary>
+/// Клас який допомагає переключати кроки допомоги в початку більшості рівнів
+/// 
+/// </summary>
 public class TutorialStep : MonoBehaviour
 {
 	private static TutorialStep emptyStep = new TutorialStep();
@@ -13,29 +16,18 @@ public class TutorialStep : MonoBehaviour
 	private bool _isFirst = false;
 	void Awake()
     {
+		//якщо наступний/минулий крок не встановлено то встановлюємо заглушку
 		if (NextStep == null)
 			NextStep = emptyStep;
 		if (PreviousStep == null)
 			PreviousStep = emptyStep;
-
+		//якщо цей крок перший то активуємо, інакше ховаємо його
 		gameObject.SetActive(_isFirst);
+		//встановлюємо минулим кроком наступного кроку цей крон
 		NextStep.PreviousStep = this;
-		int empty = 0;
-		if (NextStep == emptyStep)
-			empty++;
-		if (PreviousStep == emptyStep)
-			empty++;
-		switch (empty)
-		{
-			case 1:
-				Debug.LogWarning($"Warning {this} have empty steps, if there is less than 3 of this warning everything");
-				break;
-			case 2:
-				Debug.LogError($"{this} does not have previous and next steps, something went wrong");
-				break;
-		}
 
 	}
+	//перехід на наступний крок
 	public void GoNextStep()
 	{
 		NextStep.gameObject.SetActive(true);
@@ -43,6 +35,7 @@ public class TutorialStep : MonoBehaviour
 		NextStep.gameObject.SetActive(true);
 		gameObject.SetActive(false);
 	}
+	//перехід на минулий крок
 	public void GoPreviousStep()
 	{
 		PreviousStep.gameObject.SetActive(true);

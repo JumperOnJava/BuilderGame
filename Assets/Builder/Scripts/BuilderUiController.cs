@@ -172,7 +172,7 @@ public class BuilderUiController : MonoBehaviour
 				{
 					//Debug.Log(4);
 					//Debug.Log($"{gridElements[i, j].WireNodeMinus.isActiveAndEnabled}[{i},{j}] - {gridElements[i, j].WireNodeMinus.GetWireDots().Count}");
-					foreach (InputWireNode output in gridElements[i, j].WireNodeMinus.GetWireDots())
+					foreach (InputWireNode output in gridElements[i, j].WireNodeMinus.GetNodes())
 					{
 						//Debug.Log(3);
 						for (int i2 = 0; i2 < _builderData.GridHeight; i2++)

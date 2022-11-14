@@ -1,48 +1,48 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D;
+/// <summary>
+/// Клас який представляє собою іконку мінуса в редакторі, зберігає всю необхідну інформацію про з'єднання елементів в редакторі
+/// </summary>
 public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-	
+	//Наведення - процес при якому користувач вже почав з'єднання елементів, але ще його не закінчив
+
 	public delegate void OnDisableHanlder(InputWireNode wireDot);
 	public event OnDisableHanlder OnDotHide;
+	
+	//іконка мінуса
 	public OutputWireNode OutputNode;
+	//Зовнішній вигляд провода при наведенні
 	public SpriteShape SpriteShape;
+	//Виходи елементів
 	private HashSet<InputWireNode> outputs = new();
+	//
 	private List<ConnectionWireRespresentation> wires = new();
 	[SerializeField]
+	//Шаблон провода
 	private GameObject _wireObjectPrefab;
-	[SerializeField]
-	private Transform _wireParentun;
 
 	private Spline _spline;
 	private UnityEngine.Object _wireObject;
-
-	public List<InputWireNode> GetWireDots()
+	
+	//Функція отримання всіх виходів
+	public List<InputWireNode> GetNodes()
 	{
-		List<InputWireNode> _outputList = new();
-		foreach (var output in outputs)
-		{
-			_outputList.Add(output);
-		}
-		return _outputList;
+		return outputs.ToList();
 	}
+	//Дії при наведенні на себе з'єднання
 	public void OnDrop(PointerEventData eventData)
 	{
+		//перевірка чи з'єднання не почалося з цього ж елементу
 		if (eventData.selectedObject == OutputNode.gameObject)
 			return;
-		//Debug.Log($"Recieved Drop Event from {eventData.selectedObject}");
 		var node = eventData.selectedObject.GetComponent<OutputWireNode>();
-		/*if (node.InputNode.outputs.Contains(this) || outputs.Contains(node.InputNode))
-		{
-			RemoveOutput(node.InputNode);
-			node.InputNode.RemoveOutput(this);
-		}
-		else*/
 		node.InputNode.AddOutput(this);
 	}
 	public void RemoveOutput(InputWireNode wireDot)
@@ -84,7 +84,7 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 			var rt = lineObject.GetComponent<RectTransform>();
 			rt.sizeDelta = new Vector2(Vector3.Distance(pos2, pos1)*100+25, 25);
 			Debug.Log($"{pos1};;;{pos2}");
-			rt.rotation = Quaternion.Euler(0, 0, CustomVectorFunctions.GetAngleBetween(pos1,pos2));
+			rt.rotation = Quaternion.Euler(0, 0, CustomMathFunctions.GetAngleBetween(pos1,pos2));
 			rt.position = new Vector3(rt.position.x, rt.position.y,100);
 			ConnectionWireRespresentation wire = lineObject.GetComponent<ConnectionWireRespresentation>();
 			wire.onPressed += () => RemoveOutput(line);
@@ -93,6 +93,9 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 			wires.Add(wire);
 			rt.SetParent(parent);
 			rt.sizeDelta = new Vector2(Vector3.Distance(pos2, pos1)*100+25, 25);
+
+			/*line.UpdateLines();
+			UpdateLines();*/
 		}
 	}
 	private void OnDisableHandler(InputWireNode disablingDot)

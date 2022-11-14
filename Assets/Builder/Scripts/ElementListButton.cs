@@ -1,15 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using Unity.VisualScripting;
-using Mono.Cecil.Cil;
-using System;
-using System.Drawing;
-using System.ComponentModel;
 
 public class ElementListButton : ElementContainer
 {
@@ -17,6 +8,10 @@ public class ElementListButton : ElementContainer
     private TextMeshProUGUI _text;
     [SerializeField]
     private Image _elementIcon;
+	[SerializeField]
+	private Sprite _avaliable; 
+	[SerializeField]
+	private Sprite _unavaliable;
 	private int _count;
 	public void Init( GridCell cell,int count)
     {
@@ -28,6 +23,7 @@ public class ElementListButton : ElementContainer
 	private void UpdateText()
 	{
 		_text.text = $"{Cell.GetInfo().Name} - {_count}";
+		GetComponent<Image>().sprite = _count != 0 ? _avaliable : _unavaliable;
 	}
 	public override void DropHandler(ElementContainer container)
 	{
@@ -45,18 +41,15 @@ public class ElementListButton : ElementContainer
 	}
 	public override void OnSuccessfullRecieve(GridCell gridCell)
 	{
-			_count++;
-			UpdateText();
+		_count++;
+		UpdateText();
 	}
 	public override bool AllowRecieve() {return true;}
 	public override bool AllowSend() { return _count>0;}
 	public override void OnSuccessfullSend(GridCell gridCell)
 	{
-		
-		{
-			_count--;
-			UpdateText();
-		}
+		_count--;
+		UpdateText();
 	}
 	private void UpdateIcon()
     {

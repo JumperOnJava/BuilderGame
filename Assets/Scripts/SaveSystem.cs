@@ -17,6 +17,9 @@ public static class SaveSystem
 	public static int GetInteger(string key)
 	{
 		RestoreDictionary();
+		if(!_saveData.ContainsKey("i"+key))
+			SetInteger(key,0);
+		RestoreDictionary();
 		return int.Parse(_saveData["i"+key]);
 	}
 
@@ -34,7 +37,8 @@ public static class SaveSystem
 	{
 		if (!File.Exists(GetSavePath()))
 		{
-			File.WriteAllText(GetSavePath(), string.Empty);
+			File.Create(GetSavePath());
+			//File.WriteAllText(GetSavePath(), string.Empty);
 		}
 		var save = File.ReadAllLines(GetSavePath());
 		_saveData.Clear();

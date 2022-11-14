@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -23,30 +24,79 @@ public class CameraMovement : MonoBehaviour
     private Vector3 _mousePos => _camera.ScreenToWorldPoint(Input.mousePosition);
     private Vector3 _prevMousePos = Vector3.one;
     private Vector3 _mouseDelta =>  _prevMousePos - _mousePos;
-	
-	
+
+	[SerializeField]
+	public List<Vector2> _startPath;
+	[SerializeField]
+	private float _pathSpeed;
+
 	[SerializeField]
 	public Vector3 mousepos;
 	[SerializeField]
 	public Vector3 mousedelta;
-
+	public float completedLenght = 0;
 
 	[SerializeField]
-    private Vector3 _targetPos;
+    public Vector3 _targetPos;
     private float _targetSize;
 	[SerializeField]
-	private float _coreCounter=0;
+	private float _coreCounter=10;
 	private float _coreTime=4;
 
 	private List<GenericElement> _elements;
+	
+	IEnumerator PathCorountine()
+	{
+		var startSize = _targetSize;
+		float length = 0;
+		for (int i = 0; i < _startPath.Count - 1; i++)
+		{
+			length += Vector2.Distance(_startPath[i], _startPath[i + 1]);
+		}
+		for (; completedLenght <= length; completedLenght += _pathSpeed)
+		{
+			try
+			//while (true)
+			{
+				completedLenght += Time.deltaTime * _pathSpeed;
+				if (_coreCounter < _coreTime)
+					break;
+				float countLenght = 0;
+				int i = 0;
+				while (countLenght < completedLenght)
+				{
+					countLenght += Vector2.Distance(_startPath[i], _startPath[i + 1]);
+					i++;
+				}
+
+				i = Mathf.Clamp(i, 1, _startPath.Count - 1);
+				_targetSize = startSize + CustomMathFunctions.Lerp010(completedLenght / length)*4;
+				completedLenght = Mathf.Clamp(completedLenght, 0, length);
+				var last = countLenght - completedLenght;
+				var dist = Vector2.Distance(_startPath[i], _startPath[i - 1]);
+				Debug.Log(last / dist);
+				_targetPos = Vector2.Lerp(_startPath[i], _startPath[i - 1], last / dist);
+			}
+			catch (Exception e)
+			{
+				Debug.LogError(e);
+				break;
+			}
+			yield return null;
+		}
+	}
+	
 	void Start()
     {
         _camera = GetComponent<Camera>();
-        _targetPos = FindObjectOfType<BuilderUiController>().transform.position;
+		_targetPos = _camera.transform.position;
 		_targetSize = _camera.orthographicSize;
+		StartCoroutine(PathCorountine());
     }
     void FixedUpdate()
     {
+		
+
 		mousedelta = _mouseDelta;
 		mousepos =_mousePos;
 		float n = 8;
@@ -54,7 +104,7 @@ public class CameraMovement : MonoBehaviour
 		if (Input.GetMouseButton(1))
         {
 			n = 3;
-			_coreCounter = 0;
+			//_coreCounter = 0;
 			_targetPos += _mouseDelta;
         }
 		else

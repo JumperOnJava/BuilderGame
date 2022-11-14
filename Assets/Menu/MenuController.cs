@@ -83,6 +83,8 @@ public class MenuController : MonoBehaviour
 	}
 	public void OpenLevelMenu()
 	{
+		Debug.Log(SaveData.Level);
+
 		_playButton.SetActive(false);
 		_levelMenu.SetActive(true);
 		UpdateLevelMenu();
@@ -93,6 +95,7 @@ public class MenuController : MonoBehaviour
 	}
 	public void UpdateLevelMenu()
 	{
+		Debug.Log(SaveData.Level);
 		foreach(Transform child in _levelGrid.transform)
 		{
 			Destroy(child.gameObject);
