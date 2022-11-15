@@ -61,7 +61,7 @@ public class OutputWireNode : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 
 	public void OnDrop(PointerEventData eventData)
 	{
-		InputWireNode recievedInput = eventData.selectedObject.GetComponent<InputWireNode>();
+		if(eventData.selectedObject.TryGetComponent<InputWireNode>(out var recievedInput))
 		InputNode.AddOutput(recievedInput);
 	}
 }

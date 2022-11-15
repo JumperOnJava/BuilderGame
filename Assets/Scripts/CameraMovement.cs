@@ -21,7 +21,7 @@ public class CameraMovement : MonoBehaviour
 	[SerializeField]
 	public float _rightClamp;
 
-    private Vector3 _mousePos => _camera.ScreenToWorldPoint(Input.mousePosition);
+    private Vector3 _mousePos => Camera.main.ScreenToWorldPoint(Input.mousePosition);
     private Vector3 _prevMousePos = Vector3.one;
     private Vector3 _mouseDelta =>  _prevMousePos - _mousePos;
 
@@ -74,7 +74,7 @@ public class CameraMovement : MonoBehaviour
 				completedLenght = Mathf.Clamp(completedLenght, 0, length);
 				var last = countLenght - completedLenght;
 				var dist = Vector2.Distance(_startPath[i], _startPath[i - 1]);
-				Debug.Log(last / dist);
+				//Debug.Log(last / dist);
 				_targetPos = Vector2.Lerp(_startPath[i], _startPath[i - 1], last / dist);
 			}
 			catch (Exception e)
@@ -104,7 +104,7 @@ public class CameraMovement : MonoBehaviour
 		if (Input.GetMouseButton(1))
         {
 			n = 3;
-			//_coreCounter = 0;
+			_coreCounter = 0;
 			_targetPos += _mouseDelta;
         }
 		else

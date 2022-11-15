@@ -243,6 +243,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9264bd11232bc1e4a9e0d8481c5a0ada, type: 2}
   - {fileID: 11400000, guid: b536344a0f1385f4abb903a1872824a5, type: 2}
   - {fileID: 11400000, guid: e1e1a10c756172748ba2cc63298bdc7c, type: 2}
+  - {fileID: 11400000, guid: feb1af71db7fd3847a1355effdf94a24, type: 2}
   - {fileID: 11400000, guid: 63133a896c5c2c7479b0878be9e9e121, type: 2}
   _playButton: {fileID: 1910801921}
   _levelMenu: {fileID: 1023698657}
@@ -334,7 +335,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &539049219
 RectTransform:
   m_ObjectHideFlags: 0
@@ -652,7 +653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &821472805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -961,7 +962,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.72
+  orthographic size: 5.7701325
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1010,10 +1011,15 @@ MonoBehaviour:
   _downClamp: -100000
   _leftClamp: -100000
   _rightClamp: 100000
+  _startPath:
+  - {x: 0, y: 0}
+  - {x: 1000000.5, y: -1357}
+  _pathSpeed: 0.001
   mousepos: {x: 0, y: 0, z: 0}
   mousedelta: {x: 0, y: 0, z: 0}
+  completedLenght: 0
   _targetPos: {x: 0, y: 0, z: 0}
-  _coreCounter: 4.159997
+  _coreCounter: -22.36
 --- !u!1 &1910801921
 GameObject:
   m_ObjectHideFlags: 0
