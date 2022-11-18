@@ -3,6 +3,8 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
+//Клас який відображає редактор словника UDictionary
+
 //Code by Moe-Baker
 
 [CustomPropertyDrawer(typeof(UDictionary.SplitAttribute), true)]

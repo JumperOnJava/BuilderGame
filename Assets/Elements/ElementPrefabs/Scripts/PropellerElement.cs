@@ -15,11 +15,12 @@ public class PropellerElement : EngineElement
 	}
 	public override void OnActiveThisFrame()
 	{
-		_thisBody.AddForce(transform.up*_power, ForceMode2D.Force);
+		//_thisBody.velocity = transform.up * _power;
+		_thisBody.AddForce(transform.up*_power * Time.fixedDeltaTime, ForceMode2D.Impulse);
 		Debug.Log(_thisBody.velocity.magnitude);
-		if(_thisBody.velocity.magnitude > _maxVelocity)
-		{ 
-			_thisBody.AddForce(-_thisBody.velocity.normalized*(_thisBody.velocity.magnitude-_maxVelocity)*2, ForceMode2D.Force);
+		if (_thisBody.velocity.magnitude > _maxVelocity)
+		{
+			_thisBody.AddForce(-_thisBody.velocity.normalized * (_thisBody.velocity.magnitude - _maxVelocity) * 2 * Time.fixedDeltaTime, ForceMode2D.Force);
 		}
 	}
 

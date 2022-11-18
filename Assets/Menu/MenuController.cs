@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEditor;
@@ -25,6 +26,10 @@ public class MenuController : MonoBehaviour
 	private string _menuScene = "MainMenu";
 	private void Awake()
 	{
+		if(!File.Exists(SaveSystem.GetSavePath()))
+		{
+			File.WriteAllText(SaveSystem.GetSavePath(), "ilevel,0");
+		}
 		if (Instance == null)
 			Instance = this;
 		else
@@ -84,7 +89,6 @@ public class MenuController : MonoBehaviour
 	public void OpenLevelMenu()
 	{
 		Debug.Log(SaveData.Level);
-
 		_playButton.SetActive(false);
 		_levelMenu.SetActive(true);
 		UpdateLevelMenu();

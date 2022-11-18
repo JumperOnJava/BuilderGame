@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+//Клас комірки сітки редактора
 public class GridCellButton : ElementContainer ,IDropHandler
 {
     [SerializeField]
@@ -17,17 +17,6 @@ public class GridCellButton : ElementContainer ,IDropHandler
     [SerializeField]
 	public InputWireNode WireNodeMinus;
 	private HashSet<GridCellButton> outputs;
-	public void ModifyOutput(GridCellButton cell)
-	{
-		if (outputs.Contains(cell))
-		{
-			outputs.Remove(cell);
-		}
-		else
-		{
-			outputs.Add(cell);
-		}
-	}
 	public void Init(BuilderUiController controller,GridCell cell)
     {
 		base.Init(cell);
@@ -38,23 +27,28 @@ public class GridCellButton : ElementContainer ,IDropHandler
         Cell.Rotation = (ElementRotation)(((int)Cell.Rotation+3)%4);
 		UpdateIcon();
 	}
+	//обробка успішного отримання 
 	public override void OnSuccessfullRecieve(GridCell recieveObject)
 	{
-		//Debug.Log("recieved "+recieveObject.Type);
 		this.Cell = recieveObject;
 		UpdateIcon();
 	}
+	//обробка успішної відправки
 	public override void OnSuccessfullSend(GridCell sendObject)
 	{
-		//Debug.Log("recieved " + sendObject.Type);
 		this.Cell = sendObject;
 		UpdateIcon();
 	}
+	//дозвіл на отримання
 	public override bool AllowRecieve() { return true; }
+	//дозвіл на відправку
 	public override bool AllowSend() { return true; }
+	//оновлення комірки
 	private void UpdateIcon()
     {
+		//повертаємо іконку елементу в залежності від кута повороту комірки
 		_elementIcon.rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, (int)Cell.Rotation * 90));
+		//вмикаємо/вимикаємо вузли з'єднання в залежності від того чи є цей елемент електричним
 		if (Cell.GetInfo().CircuitElement == CircuitElement.None)
 		{
 			WireNodePlus.DisableNode();
@@ -65,7 +59,9 @@ public class GridCellButton : ElementContainer ,IDropHandler
 			WireNodePlus.EnableNode();
 			WireNodeMinus.EnableNode();
 		}
+		//вмикаємо кнопку повороту в залежності від того чи можна обертати елемент
 		_rotateButton.SetActive(Cell.GetInfo().Rotates);
+		//змінюємо спрайт
 		_elementIcon.sprite = Cell.GetInfo().Sprite;
 	}
 }

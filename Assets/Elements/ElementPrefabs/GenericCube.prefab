@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4966472049842496284}
   - component: {fileID: 4966472049842496283}
   - component: {fileID: 4966472049842496285}
+  - component: {fileID: 5725359722881387083}
   m_Layer: 2
   m_Name: GenericCube
   m_TagString: Untagged
@@ -146,3 +147,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd495dc77e1de84c800e27f1aa62759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5725359722881387083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966472049842496273}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: b3cc05908bea33e7000000003f95509e
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -48006

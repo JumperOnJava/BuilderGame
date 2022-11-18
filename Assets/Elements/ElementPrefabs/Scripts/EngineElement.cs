@@ -1,28 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;	
 using UnityEngine;
 
 public abstract class EngineElement : ElectricElement
 {
-	private bool activeThisFrame = false;
+	[SerializeField]
+	private bool _active = false;
 	//public bool IsInverted = false;
 	public void Start()
 	{
 		_resistance = true;
 	}
-	public override void OnElementActive()
+	public override void SetElementActive(bool active)
 	{
-		activeThisFrame = true;
+		this._active = active;
 	}
 	public override bool IsElementPassSignal(){return true;}
 	public abstract void OnActiveThisFrame();
 	public abstract void OnInactiveThisFrame();
-	private void LateUpdate()
+	private void FixedUpdate()
 	{
-		if (activeThisFrame)
+		if (_active)
 			OnActiveThisFrame();
 		else
 			OnInactiveThisFrame();
-		activeThisFrame=false;
+
+		SetElementActive(false);
 	}
 }

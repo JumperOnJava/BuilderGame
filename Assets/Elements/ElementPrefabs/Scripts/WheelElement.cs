@@ -16,7 +16,7 @@ public class WheelElement : EngineElement
     }
 	public override void OnActiveThisFrame()
 	{
-		_wheel.AddTorque(-Time.deltaTime * _wheelSpeed);
+		_wheel.AddTorque(-Time.fixedDeltaTime * _wheelSpeed);
 		//var hinge = GetComponentInChildren<HingeJoint2D>();
 
 	}

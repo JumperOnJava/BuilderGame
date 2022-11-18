@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Клас який контролює штучне світло
 public class ArtificialLight : MonoBehaviour
 {
-	private void OnCollisionEnter2D(Collision2D collision)
+	//При вході/виході в коллайдер штучного світла перемикаємо стан штучного освітлення на необхідний
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		collision.otherCollider.gameObject.GetComponent<LightSensorElement>().isInArtificalLight = true;
+		if(collision.gameObject.TryGetComponent<LightSensorElement>(out var light))
+			light.ArtificalLight++;
 	}
-	private void OnCollisionExit2D(Collision2D collision)
+
+	private void OnTriggerExit2D(Collider2D collision)
 	{
-		collision.otherCollider.gameObject.GetComponent<LightSensorElement>().isInArtificalLight = false;
+		if (collision.gameObject.TryGetComponent<LightSensorElement>(out var light))
+			light.ArtificalLight--;
 	}
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: ffe4362074def57429d45897c5a90e0b, type: 3}
   Name: "\u042F\u0434\u0440\u043E "
-  ElementPrefab: {fileID: 4966472049842496273, guid: c31e0a37e62a8a04c94a11acb7ae15b2, type: 3}
+  Prefab: {fileID: 4966472049842496273, guid: c31e0a37e62a8a04c94a11acb7ae15b2, type: 3}
   CircuitElement: 0
   Rotates: 0
   ConnectsUp: 1

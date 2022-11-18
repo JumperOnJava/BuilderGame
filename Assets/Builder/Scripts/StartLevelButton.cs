@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//Клас кнопки запуску рівня
 public class StartLevelButton : MonoBehaviour
 {
     private BuilderUiController _controller;

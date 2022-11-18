@@ -6,9 +6,10 @@ using UnityEngine;
 public class CameraBoundsInEditor : MonoBehaviour
 {
 	CameraMovement cam => Camera.main.GetComponent<CameraMovement>();
-    void Update()
+	static float t = 0.05f;
+
+	void Update()
 	{
-		var t = 0.05f;
 		var _startPath = cam._startPath;
 		for (int i = 0; i < _startPath.Count-1; i++)
 		{
@@ -30,7 +31,14 @@ public class CameraBoundsInEditor : MonoBehaviour
 		Debug.DrawLine(v1, v2, Color.red, t);
 		for (float i = 0; i < Mathf.PI * 2; i += 0.3f)
 		{
-			Debug.DrawLine(cam._targetPos + new Vector3(Mathf.Sin(i - 0.3f), Mathf.Cos(i-0.3f)) / 2, cam._targetPos + new Vector3(Mathf.Sin(i), Mathf.Cos(i))/2,Color.green,t);
+			Debug.DrawLine(cam._targetPos + new Vector3(Mathf.Sin(i - 0.3f), Mathf.Cos(i - 0.3f)) / 2, cam._targetPos + new Vector3(Mathf.Sin(i), Mathf.Cos(i)) / 2, Color.green, t);
+		}
+	}
+	public static void DebugPoint(Vector3 pos,float size)
+	{
+		for (float i = 0; i < Mathf.PI * 2; i += 0.3f)
+		{
+			Debug.DrawLine(pos + new Vector3(Mathf.Sin(i - 0.3f), Mathf.Cos(i - 0.3f)) *size, pos + new Vector3(Mathf.Sin(i), Mathf.Cos(i)) *size, Color.green, t);
 		}
 	}
 }

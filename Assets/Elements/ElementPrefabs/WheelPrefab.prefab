@@ -183,7 +183,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 8085618682661601539}
   - component: {fileID: 72236941941989028}
   - component: {fileID: 2548316197957088764}
+  - component: {fileID: 7521260693473552255}
   m_Layer: 2
   m_Name: WheelPrefab
   m_TagString: Untagged
@@ -284,7 +285,7 @@ MonoBehaviour:
   _outputs: []
   _jointWheelHolder: {fileID: 8085618682661601539}
   _wheel: {fileID: 6523875901382194859}
-  _wheelSpeed: 600
+  _wheelSpeed: 150
 --- !u!50 &8085618682661601539
 Rigidbody2D:
   serializedVersion: 4
@@ -297,7 +298,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 0.5
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
@@ -386,3 +387,35 @@ PolygonCollider2D:
     - - {x: 0, y: 0}
       - {x: -1.1, y: 1.28}
       - {x: 1.1, y: 1.28}
+--- !u!114 &7521260693473552255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8867919186594624843}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: b3cc05908bea33e7000000003f95509e
+  m_ShapePath:
+  - {x: -0.40939963, y: -1.0408252, z: 0}
+  - {x: -0.736663, y: -0.8371157, z: 0}
+  - {x: -0.9184364, y: -0.3778976, z: 0}
+  - {x: -1.2800008, y: 1.2800009, z: 0}
+  - {x: 1.2800009, y: 1.2800009, z: 0}
+  - {x: 0.8686184, y: -0.6198746, z: 0}
+  - {x: 0.6314241, y: -0.9614883, z: 0}
+  - {x: 0.36354688, y: -1.1049937, z: 0}
+  - {x: -0.038269002, y: -1.1623957, z: 0}
+  m_ShapePathHash: -552290650
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 99952

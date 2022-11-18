@@ -4,21 +4,24 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using UnityEngine;
-
+//Клас який зберігає дані про певний тип елементу
 [CreateAssetMenu(fileName = "ElementInfo", menuName = "Element Info")]
 public class ElementInfo : ScriptableObject
 {
+    //Спрайт в редакторі
     public Sprite Sprite;
+    //Назва в списку в редакторі
     public string Name;
-    public GameObject ElementPrefab;
-    public GameObject GetPrefab(int rotation)
-    {
-		return ElementPrefab;   
-    }
-	public CircuitElement CircuitElement = CircuitElement.None;
-	public bool Rotates;
+    //Шаблон Елементу
+    public GameObject Prefab;
+    //Роль елемента в Схемі
+	  public CircuitElement CircuitElement = CircuitElement.None;
+	  //Чи можна повернути цей вид елементу
+    public bool Rotates;
     [Space]
     [Header("Connections")]
+
+    //З яких сторін елемент може скріплюватися з іншими елементами
     [SerializeField]
     private bool ConnectsUp = true;
     [SerializeField]

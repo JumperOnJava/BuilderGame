@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 72236941941989028}
   - component: {fileID: 2548316197957088764}
   - component: {fileID: 6499680397225151495}
+  - component: {fileID: 4727743295211762865}
   m_Layer: 2
   m_Name: PropellerPrefab
   m_TagString: Untagged
@@ -149,5 +150,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _outputs: []
-  _power: 85
-  _maxVelocity: 10
+  _power: 50
+  _maxVelocity: 100
+--- !u!114 &4727743295211762865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8867919186594624843}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: b3cc05908bea33e7000000003f95509e
+  m_ShapePath:
+  - {x: -0.2588117, y: -0.5075371, z: 0}
+  - {x: -0.49623138, y: 0.002549231, z: 0}
+  - {x: 0.5037686, y: 0.002549231, z: 0}
+  - {x: 0.24750608, y: -0.50376856, z: 0}
+  m_ShapePathHash: -1014364330
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 92638

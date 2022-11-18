@@ -7,6 +7,8 @@ public class BackgroundController : MonoBehaviour
 	[SerializeField]
 	List<Sprite> _cloudSprites;
 	[SerializeField]
+	Material _spriteMaterial;
+	[SerializeField]
 	int _upDownSpread=2;
 	[SerializeField]
 	int _leftRightSpread = 1;
@@ -15,6 +17,7 @@ public class BackgroundController : MonoBehaviour
 	[SerializeField]
 	float _cloudSpeed = 10;
 	List<GameObject> _clouds = new();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,7 @@ public class BackgroundController : MonoBehaviour
 		{
 			var cloud = new GameObject();
 			SpriteRenderer sprite = cloud.AddComponent<SpriteRenderer>();
+			sprite.material = _spriteMaterial;
 			sprite.sprite = _cloudSprites[Random.Range(0,_cloudSprites.Count)];
 			sprite.sortingLayerName = "BackgroundSky";
 			cloud.transform.position = new Vector3(i*_leftRightSpread,Random.Range(-_upDownSpread,+_upDownSpread+1)	);

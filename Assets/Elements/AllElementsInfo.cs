@@ -1,8 +1,9 @@
-    using Mono.Cecil;
+using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Клас який дає інформацію про різні види елементів
 [CreateAssetMenu(fileName = "AllElementsInfo", menuName = "All Elements Info")]
 public class AllElementsInfo : ScriptableObject
 {

@@ -9,7 +9,7 @@ public class BatteryElement : ElectricElement
 		return true;
 	}
 
-	public override void OnElementActive(){}
+	public override void SetElementActive(bool b) { }
 
 	public override bool UpdateRecursive(bool input,int index,BatteryElement battery)
 	{
@@ -22,6 +22,7 @@ public class BatteryElement : ElectricElement
 	}
 	private void Update()
 	{
+		//для кожного з'єднання викликаємо функцію рекурсивного оновлення
 		foreach(var element in _outputs)
 		{
 			try
