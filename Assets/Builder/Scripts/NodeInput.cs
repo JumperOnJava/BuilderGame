@@ -7,22 +7,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D;
 /// <summary>
-/// Клас який представляє собою іконку мінуса в редакторі, зберігає всю необхідну інформацію про з'єднання елементів в редакторі
+/// Клас який представляє собою іконку вузла в редакторі, зберігає всю необхідну інформацію про з'єднання елементів в редакторі
 /// </summary>
-public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class NodeInput : MonoBehaviour, IDropHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 	//Наведення - процес при якому користувач вже почав з'єднання елементів, але ще його не закінчив
 	//Провід - об'єкт який показує з'єднані елементи
-	//Вузол - іконка плюса(вихід) та мінуса(входу)
-	public delegate void OnDisableHanlder(InputWireNode wireDot);
+	//Вузол - іконка входу/виходу
+	public delegate void OnDisableHanlder(NodeInput wireDot);
 	public event OnDisableHanlder OnDotHide;
-	
-	//Вузол мінуса цього елемента
-	public OutputWireNode OutputNode;
+
 	//Зовнішній вигляд провода при наведенні
-	public SpriteShape SpriteShape;
+	[SerializeField]
+	private SpriteShape _spriteShape;
 	//Вихідні вузли 
-	private HashSet<InputWireNode> outputs = new();
+	private HashSet<NodeInput> outputs = new();
 	//Проводи
 	private List<ConnectionWireRespresentation> wires = new();
 	[SerializeField]
@@ -33,7 +32,7 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 	private UnityEngine.Object _wireObject;
 	
 	//Функція отримання всіх виходів
-	public List<InputWireNode> GetNodes()
+	public List<NodeInput> GetNodes()
 	{
 		return outputs.ToList();
 	}
@@ -41,20 +40,20 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 	public void OnDrop(PointerEventData eventData)
 	{
 		//перевірка чи з'єднання не почалося з цього ж елементу
-		if (eventData.selectedObject == OutputNode.gameObject)
-			return;
+		/*if (eventData.selectedObject == this.gameObject)
+			return;*/
 
-		//отримуємо вивід (плюс) з якого почалося наведення та додаємо цей об'єкт як один з його виводів
-		if(eventData.selectedObject.TryGetComponent<OutputWireNode>(out var node))
-		node.InputNode.AddOutput(this);
+		//отримуємо вузол з якого почалося наведення та додаємо цей об'єкт як один з його виводів
+		if(eventData.selectedObject.TryGetComponent<NodeInput>(out var node))
+		node.AddOutput(this);
 	}
-	public void RemoveOutput(InputWireNode wireDot)
+	public void RemoveOutput(NodeInput wireDot)
 	{
 		outputs.Remove(wireDot);
 		if (outputs.Count == 0)
 		UpdateLines();
 	}
-	public void AddOutput(InputWireNode wireDot)
+	public void AddOutput(NodeInput wireDot)
 	{
 		if (wireDot != this)
 			outputs.Add(wireDot);
@@ -73,11 +72,11 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 		//отримуємо об'єкт в який нам потрібно помістити новий провід для того щоб він був на необхідному шарі (layer) інтерфейсу
 		Transform parent = FindObjectOfType<GridLayerInfo>().WireLayer.transform;
 		//для кожного з'єднання створюємо провід
-		foreach (InputWireNode line in outputs)
+		foreach (NodeInput line in outputs)
 		{
 			//отримуємо координати кінці провода, тобто два вузли
 			Vector3 pos1 = line.GetComponent<RectTransform>().position;
-			Vector3 pos2 = OutputNode.GetComponent<RectTransform>().position;
+			Vector3 pos2 = this.GetComponent<RectTransform>().position;
 			
 			//Створюємо новий провід за шаблоном та настроюємо його
 			GameObject lineObject = Instantiate(_wireObjectPrefab);
@@ -107,7 +106,7 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 			//rt.sizeDelta = new Vector2(Vector3.Distance(pos2, pos1)*100+25, 25);
 		}
 	}
-	private void OnDisableHandler(InputWireNode disablingDot)
+	private void OnDisableHandler(NodeInput disablingDot)
 	{
 		//Дії при при вимкненні 
 		RemoveOutput(disablingDot);
@@ -131,13 +130,12 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 	{
 		gameObject.SetActive(true);
 	}
-
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		//Debug.Log("WireDot Started drag");
+		//створюємо тимчасовий провід на час наведення
 		_wireObject = new GameObject();
 		var controller = _wireObject.AddComponent<SpriteShapeController>();
-		controller.spriteShape = SpriteShape;
+		controller.spriteShape = _spriteShape;
 		controller.splineDetail = 4;
 		_spline = controller.spline;
 		_spline.isOpenEnded = true;
@@ -145,12 +143,12 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 
 	public void OnDrag(PointerEventData eventData)
 	{
-
+		//оновлюємо кінці тимчасового провода кожен кадр при наведенні
 		_spline.RemovePointAt(1);
 		_spline.RemovePointAt(0);
 
-		_spline.InsertPointAt(0, GetComponent<RectTransform>().position);
-		_spline.InsertPointAt(1, Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition));
+		_spline.InsertPointAt(0, Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition));
+		_spline.InsertPointAt(1, GetComponent<RectTransform>().position);
 		_spline.RemovePointAt(2);
 		_spline.RemovePointAt(2);
 
@@ -159,10 +157,7 @@ public class InputWireNode : MonoBehaviour, IDropHandler, IBeginDragHandler, IEn
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
+		//видаляємо тимчасовий провід
 		Destroy(_wireObject);
-		var selobj = eventData.selectedObject;
-		var comp = GetComponent<InputWireNode>();
-		var inputNode = comp;
-		inputNode.AddOutput(this);
 	}
 }

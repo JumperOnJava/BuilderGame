@@ -20,7 +20,7 @@ public class DebugInitializer : MonoBehaviour
 	private void Update()
 	{
 		Application.targetFrameRate = fps;
-		Debug.Log(1.0f/ Time.fixedDeltaTime);
+		//Debug.Log(1.0f/ Time.fixedDeltaTime);
 	}
 
 }

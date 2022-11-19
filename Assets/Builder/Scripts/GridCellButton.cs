@@ -13,9 +13,7 @@ public class GridCellButton : ElementContainer ,IDropHandler
     [SerializeField]
     private GameObject _rotateButton;
     [SerializeField]
-	public OutputWireNode WireNodePlus;
-    [SerializeField]
-	public InputWireNode WireNodeMinus;
+	public NodeInput WireNode;
 	private HashSet<GridCellButton> outputs;
 	public void Init(BuilderUiController controller,GridCell cell)
     {
@@ -51,13 +49,11 @@ public class GridCellButton : ElementContainer ,IDropHandler
 		//вмикаємо/вимикаємо вузли з'єднання в залежності від того чи є цей елемент електричним
 		if (Cell.GetInfo().CircuitElement == CircuitElement.None)
 		{
-			WireNodePlus.DisableNode();
-			WireNodeMinus.DisableNode();
+			WireNode.DisableNode();	 
 		}
 		else
 		{
-			WireNodePlus.EnableNode();
-			WireNodeMinus.EnableNode();
+			WireNode.EnableNode();
 		}
 		//вмикаємо кнопку повороту в залежності від того чи можна обертати елемент
 		_rotateButton.SetActive(Cell.GetInfo().Rotates);

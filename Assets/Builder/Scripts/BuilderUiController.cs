@@ -171,31 +171,31 @@ public class BuilderUiController : MonoBehaviour
                 //але замість цього можна створити масив необхідних зміщень, і з'єднати необхінді елементи за цим масивом
                 int[] i1 = { -1, 0, 1, 0 }; 
                 int[] j1 = { 0, 1, 0, -1 };
-                //в цьому випадку це також зручно тим що в інших місцях поворот тако
+				//в цьому випадку це також зручно тим що в інших місцях поворот тако
 
-                //проходимося по кожній стороні елементу
+				//проходимося по кожній стороні елементу
 				for (int k = 0; k < 4; k++)
-                {
-                    GameObject jointObject;
-                    try
-                    {
-                        //отримуємо необхідний елемент (якщо він існує)
-                        jointObject = elements[i + i1[k], j + j1[k]];
-                    }
-                    catch { continue; }
-                    if (jointObject == null)
-                        continue;
+				{
+					GameObject jointObject;
+					try
+					{
+						//отримуємо необхідний елемент (якщо він існує)
+						jointObject = elements[i + i1[k], j + j1[k]];
+					}
+					catch { continue; }
+					if (jointObject == null)
+						continue;
 
 					GridCellButton gridElement = gridElements[i, j];
-					GridCellButton gridElement2 = gridElements[i + i1[k],j + j1[k]];
-                    //перевіряємо чи повинні з'єднуватися ці об'єкти
+					GridCellButton gridElement2 = gridElements[i + i1[k], j + j1[k]];
+					//перевіряємо чи повинні з'єднуватися ці об'єкти
 					if (!(gridElement.Cell.ShouldConnect(k) && gridElement2.Cell.ShouldConnect(k + 2))) { continue; }
-                    //якщо так, то з'єднуємо їх
-                    elements[i, j].GetComponent<GenericElement>().ConnectWith(
-                        //об'єкт, до якого повинні приєднуватися інші об'єкти які не є цим елементом
-                        jointObject.GetComponent<GenericElement>().GetJointObject()
-                        );
-                }
+					//якщо так, то з'єднуємо їх
+					elements[i, j].GetComponent<GenericElement>().ConnectWith(
+						jointObject.GetComponent<GenericElement>().GetJointObject()
+						);
+
+				}
             }
         }
         //Проходимось по кожній комірці сітки
@@ -204,10 +204,10 @@ public class BuilderUiController : MonoBehaviour
 			for (int j = 0; j < _builderData.GridWidth; j++)
 			{
                 //якщо цей елемент є елементом схеми
-				if (gridElements[i,j].WireNodeMinus.gameObject.activeInHierarchy)
+				if (gridElements[i,j].WireNode.gameObject.activeInHierarchy)
 				{
                     //для кожного з його з'єднань
-					foreach (InputWireNode output in gridElements[i, j].WireNodeMinus.GetNodes())
+					foreach (NodeInput output in gridElements[i, j].WireNode.GetNodes())
 					{
                         //знаходимо елемент цього з'єднання
 						for (int i2 = 0; i2 < _builderData.GridHeight; i2++)
@@ -215,7 +215,7 @@ public class BuilderUiController : MonoBehaviour
 							for (int j2 = 0; j2 < _builderData.GridWidth; j2++)
 							{
                                 //якщо це необхідний елемент
-								if (gridElements[i2,j2].WireNodeMinus == output)
+								if (gridElements[i2,j2].WireNode == output)
 								{
                                     //додаємо зв'язок між цими елементами
 									elements[i, j].GetComponent<ElectricElement>().AddOutput(elements[i2, j2].GetComponent<ElectricElement>());

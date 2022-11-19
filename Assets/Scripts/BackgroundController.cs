@@ -5,7 +5,11 @@ using UnityEngine;
 public class BackgroundController : MonoBehaviour
 {
 	[SerializeField]
+	private bool _isNightTime;
+	[SerializeField]
 	List<Sprite> _cloudSprites;
+	[SerializeField]
+	List<Sprite> _starSprites;
 	[SerializeField]
 	Material _spriteMaterial;
 	[SerializeField]
@@ -13,15 +17,14 @@ public class BackgroundController : MonoBehaviour
 	[SerializeField]
 	int _leftRightSpread = 1;
 	[SerializeField]
-	int _cloudCount = 10;
+	int _thingCount = 10;
 	[SerializeField]
 	float _cloudSpeed = 10;
 	List<GameObject> _clouds = new();
 
-    // Start is called before the first frame update
     void Start()
     {
-		for (int i = 0;i<_cloudCount;i++)
+		for (int i = 0;i<_thingCount;i++)
 		{
 			var cloud = new GameObject();
 			SpriteRenderer sprite = cloud.AddComponent<SpriteRenderer>();
@@ -34,7 +37,6 @@ public class BackgroundController : MonoBehaviour
 		}
     }
 
-	// Update is called once per frame
 	void Update()
 	{
 		foreach (GameObject cloud in _clouds)

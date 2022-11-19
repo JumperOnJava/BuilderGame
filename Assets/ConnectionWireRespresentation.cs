@@ -12,7 +12,7 @@ public class ConnectionWireRespresentation : MonoBehaviour
 		//при натиску активуємо подію
 		onPressed.Invoke();
 		//знаходимо всі мінусові вузли та оновлюємо іх з'єднання
-		var objects = FindObjectsOfType<InputWireNode>();
+		var objects = FindObjectsOfType<NodeInput>();
 		foreach (var object_ in objects)
 		{
 			object_.UpdateLines();

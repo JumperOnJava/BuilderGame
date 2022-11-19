@@ -17,28 +17,21 @@ public abstract class ElectricElement : GenericElement
 	}
 	public abstract bool IsElementPassSignal();
 	public abstract void SetElementActive(bool active);
-
-	protected bool _resistance = true;
 	//Рекурсивне оновлення
-	public virtual bool UpdateRecursive(bool stillComplete, int resistance, BatteryElement battery)
+	public virtual void UpdateRecursive()
 	{
-		bool isLoopComplete = false;
-		//Перевіряємо чи сенсор повинен передавати сигнал
+		//активуємо цей елемент якщо це двигун
+		SetElementActive(true);
+		//Перевіряємо чи елемент повинен передавати сигнал далі
 		if (!IsElementPassSignal())
 		{
-			return false;
+			return;
 		}
-		//питаємо у кожного наступного елемента чи повне коло
-
+		//Подаємо сигнал на кожен наступний елемент
 		foreach (var output in _outputs)
 		{
-			isLoopComplete = isLoopComplete || output.UpdateRecursive(stillComplete, resistance + (_resistance ? 1 : 0), battery);
+			output.UpdateRecursive();
 		}
-		// якщо хоч один з них відповідає що повне, то активуємо цей елемент
-		SetElementActive(isLoopComplete);
-		CameraBoundsInEditor.DebugPoint(transform.position, 0.3f);
-
-		//поветраємо чи повне це коло попередньому елементу
-		return isLoopComplete;
+		return;
 	}
 }
