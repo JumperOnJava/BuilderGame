@@ -978,23 +978,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!224 &710333224 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6373402475102686046, guid: 6fa5febb722442a4bb1ce5ea6a1c7bd6, type: 3}
-  m_PrefabInstance: {fileID: 307894168}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &710333225 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1645983557005805121, guid: 6fa5febb722442a4bb1ce5ea6a1c7bd6, type: 3}
-  m_PrefabInstance: {fileID: 307894168}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 617f1adcd53047541ad65eb489cee612, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!43 &714292839
+--- !u!43 &538044429
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1158,6 +1142,22 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!224 &710333224 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6373402475102686046, guid: 6fa5febb722442a4bb1ce5ea6a1c7bd6, type: 3}
+  m_PrefabInstance: {fileID: 307894168}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &710333225 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1645983557005805121, guid: 6fa5febb722442a4bb1ce5ea6a1c7bd6, type: 3}
+  m_PrefabInstance: {fileID: 307894168}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617f1adcd53047541ad65eb489cee612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &729375247
 GameObject:
   m_ObjectHideFlags: 0
@@ -2346,8 +2346,8 @@ MonoBehaviour:
   - {x: -7.397113, y: 0.46666956, z: 0}
   - {x: -6.6945047, y: -0.23646593, z: 0}
   m_ShapePathHash: -292103057
-  m_Mesh: {fileID: 714292839}
-  m_InstanceId: 102358
+  m_Mesh: {fileID: 538044429}
+  m_InstanceId: 52958
 --- !u!1 &1158568696
 GameObject:
   m_ObjectHideFlags: 0
@@ -3106,6 +3106,10 @@ PrefabInstance:
     - target: {fileID: 6373402475102686046, guid: 6fa5febb722442a4bb1ce5ea6a1c7bd6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441226253374387961, guid: 6fa5febb722442a4bb1ce5ea6a1c7bd6, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9002226361548213784, guid: 6fa5febb722442a4bb1ce5ea6a1c7bd6, type: 3}
       propertyPath: m_Name
