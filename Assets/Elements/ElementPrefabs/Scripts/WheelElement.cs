@@ -16,13 +16,10 @@ public class WheelElement : EngineElement
     }
 	public override void OnActiveThisFrame()
 	{
+		//якщо колесо активне збільшуємо швидкість повороту
 		_wheel.AddTorque(-Time.fixedDeltaTime * _wheelSpeed);
-		//var hinge = GetComponentInChildren<HingeJoint2D>();
-
 	}
 	public override void OnInactiveThisFrame()
 	{
-		//var hinge = GetComponentInChildren<HingeJoint2D>();
-		//hinge.useMotor = false;
 	}
 }

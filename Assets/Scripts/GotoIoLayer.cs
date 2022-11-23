@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GotoIoLayer : MonoBehaviour
 {
-	// Start is called before the first frame update
 	void Awake()
 	{
 		transform.SetParent(FindObjectOfType<GridLayerInfo>().IOLayer.transform);

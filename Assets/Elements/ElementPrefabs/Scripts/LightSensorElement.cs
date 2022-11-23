@@ -5,17 +5,17 @@ using System.Security.Cryptography;
 using UnityEngine;
 
 /// <summary>
-/// Клас який контролює фоторезистор
+/// РљР»Р°СЃ СЏРєРёР№ РєРѕРЅС‚СЂРѕР»СЋС” С„РѕС‚РѕСЂРµР·РёСЃС‚РѕСЂ
 /// </summary>
 public class LightSensorElement : SensorElement
 {
 	public int ArtificalLight = 0;
 	public override bool IsElementPassSignal()
 	{
-		//перевіряємо чи є над фоторезистором будь який об'єкт
+		//РїРµСЂРµРІС–СЂСЏС”РјРѕ С‡Рё С” РЅР°Рґ С„РѕС‚РѕСЂРµР·РёСЃС‚РѕСЂРѕРј Р±СѓРґСЊ СЏРєРёР№ РѕР±'С”РєС‚
 		RaycastHit2D skyCheck = Physics2D.Raycast(transform.position, Vector2.up);
 
-		//Якщо над фоторезистором немає ніяких об'єктів або його освітлює штучне світло то проводимо сигнал
+		//РЇРєС‰Рѕ РЅР°Рґ С„РѕС‚РѕСЂРµР·РёСЃС‚РѕСЂРѕРј РЅРµРјР°С” РЅС–СЏРєРёС… РѕР±'С”РєС‚С–РІ Р°Р±Рѕ Р№РѕРіРѕ РѕСЃРІС–С‚Р»СЋС” С€С‚СѓС‡РЅРµ СЃРІС–С‚Р»Рѕ С‚Рѕ РїСЂРѕРІРѕРґРёРјРѕ СЃРёРіРЅР°Р»
 
 		if (skyCheck.collider == null || ArtificalLight > 0)
 		{

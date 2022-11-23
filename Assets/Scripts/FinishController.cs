@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//Клас який контролює все пов'язане з фінішом
 public class FinishController : MonoBehaviour
 {
 	[SerializeField]
@@ -8,19 +8,29 @@ public class FinishController : MonoBehaviour
 	private CameraMovement _camera;
 	private void Start()
 	{
+		//вимикаємо меню якщо воно увімкнено
 		_finishMenu.SetActive(false);
 	}
+	//При заході у фініш
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log("triggered finish");
+		//якщо об'єкт який торкнувся фініша є частиною візка
 		if (other.gameObject.TryGetComponent<GenericElement>(out var elm))
-		 _finishMenu.SetActive(true);
-		MenuController.Instance.OnFinish();
-		Camera.main.GetComponent<CameraMovement>().enabled = false;
+		{
+			//вмикаємо меню фінішу
+			_finishMenu.SetActive(true);
+			//розблоковуємо наступний рівень
+			MenuController.Instance.OnFinish();
+			//блокуємо камеру
+			Camera.main.GetComponent<CameraMovement>().enabled = false;
+		}
 	}
+	//фунція перезапуску рівня в меню фінішу
 	public void HideMenu()
 	{
+		//вимикаємо меню фінішу
 		_finishMenu.SetActive(false);
+		//розблоковуємо камеру
 		Camera.main.GetComponent<CameraMovement>().enabled = true;
 	}
 }
