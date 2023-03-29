@@ -603,7 +603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 832785878664535260, guid: b120ed1a3846ad0488058368485bfb74, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 198.8764
+      value: 131.36
       objectReference: {fileID: 0}
     - target: {fileID: 832785878664535260, guid: b120ed1a3846ad0488058368485bfb74, type: 3}
       propertyPath: m_SizeDelta.y
@@ -667,11 +667,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1865021324566035709, guid: b120ed1a3846ad0488058368485bfb74, type: 3}
       propertyPath: m_text
-      value: "\u041D\u0430\u0441\u0442\u0443\u043F\u043D\u0438\u0439 \u043A\u0440\u043E\u043A"
+      value: Next step
       objectReference: {fileID: 0}
     - target: {fileID: 1865021324566035709, guid: b120ed1a3846ad0488058368485bfb74, type: 3}
       propertyPath: m_VerticalAlignment
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907742407274939478, guid: b120ed1a3846ad0488058368485bfb74, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6326351839125283366, guid: b120ed1a3846ad0488058368485bfb74, type: 3}
       propertyPath: m_LocalRotation.w

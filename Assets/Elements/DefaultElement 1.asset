@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DefaultElement 1
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 2eac8908af133af4795ca329bffd3dc1, type: 3}
-  Name: "\u0421\u0432\u0456\u0442\u043B\u043E"
-  ElementPrefab: {fileID: 4966472049842496273, guid: 5d1f638529f7e7546af40feb74481b77, type: 3}
+  Name: Light
+  Prefab: {fileID: 0}
   CircuitElement: 2
   Rotates: 0
   ConnectsUp: 1

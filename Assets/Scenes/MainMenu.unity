@@ -245,7 +245,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e1e1a10c756172748ba2cc63298bdc7c, type: 2}
   - {fileID: 11400000, guid: feb1af71db7fd3847a1355effdf94a24, type: 2}
   - {fileID: 11400000, guid: 7d0664bddbb167744b2c5f738dc3cf10, type: 2}
-  - {fileID: 11400000, guid: 63133a896c5c2c7479b0878be9e9e121, type: 2}
   _playButton: {fileID: 1910801921}
   _levelMenu: {fileID: 1023698657}
   _levelGrid: {fileID: 2095580544}
